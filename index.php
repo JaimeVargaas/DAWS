@@ -8,4 +8,4 @@ hola
     if($suma>25)
         echo "mayor";
     // phpinfo();
-?>adios
+?>adiosssss
