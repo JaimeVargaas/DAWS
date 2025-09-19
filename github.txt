@@ -1,0 +1,16 @@
+Instalar programa git
+Iniciar sesion en visual studio code con github
+Crear repositorio en github
+
+Para subir lo que quieras a github:
+    git init
+    git status para ver lo que vas a subir en el commit
+    git add . para añadir todos los cambios al commit
+    git commit -m "mensaje"
+    git checkout (nombre rama) para colocarnos en la rama que queramos si hay mas de una
+    git branch -M main
+    git remote add origin (enlace repositorio)
+    git push -u origin main
+
+Para descargar desde github al pc
+    git clone (enlace repositorio)...
