@@ -1,11 +1,28 @@
-hola
 <?php
-    $numero=15;
-    echo $numero. " ";
+include_once(dirname(__FILE__) . "/cabecera.php");
 
-    $numero++;
-    $suma= $numero+$numero . " ";
-    if($suma>25)
-        echo "mayor";
-    // phpinfo();
-?>adiosssss
+
+
+// dibuja la plantilla de la vista
+inicioCabecera("APLICACION PRUEBA");
+cabecera();
+finCabecera();
+
+inicioCuerpo("2DAW APLICACION");
+cuerpo(); // llamo a la vista
+finCuerpo();
+
+
+
+// **********************************************************
+
+function cabecera() {}
+
+//vista
+function cuerpo()
+{
+?>
+        <a href="./aplicacion/pruebas/index.php">Acceso a pruebas</a>
+<?php
+
+}
