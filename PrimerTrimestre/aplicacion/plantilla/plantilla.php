@@ -64,7 +64,7 @@ function inicioCuerpo(string $cabecera)
             <div id="barraMenu">
                 <ul>
                     <li><a href="/index.php">Inicio</a></li>
-                    <li><a href="./aplicacion/pruebas/index.php">Pruebas</a></li>
+                    <li><a href="/aplicacion/pruebas/index.php">Pruebas</a></li>
                 </ul>
             </div>
 
