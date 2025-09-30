@@ -1,16 +1,12 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
-//controlador
 
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
-cabecera();
-finCabecera();
 inicioCuerpo("Practica 1");
-cuerpo();  //llamo a la vista
+cuerpo();  
 finCuerpo();
-// **
 
 //vista
 function cuerpo()
@@ -41,8 +37,35 @@ $array = [2,4,6,1,6];
 $minimo = min($array);
 $maximo = max($array);
 
+// Prueba de binarios, octal, y hexadecimal
+$binario = 0b10101;
+$octal = 012;
+
+
 ?>
 <!-- Ahora hacer html para que salga en la vista -->
+<h2>Funciones Matemáticas</h2>
+<h3>Variables en binario, octal y hexadecimal</h3>
+<ul>
+    <li>Binario - <?= decbin($binario)?> - Decimal - <?=$binario?></li>
+    <li>Octal -  <?= decoct($octal)?> - Decimal - <?= $octal ?></li>
+    <li>Hexadecimal - <?=dechex($hex)?> - Decimal - <?= $hex ?></li>
+</ul>
+
+<h3>Resultados de las funciones</h3>
+<ul>
+    <li>Número sin redondear: <?= $num?> - Número redondeado: <?=$conRedondeo?></li>
+    <li>Número sin redondeo hacia abajo: <?=$num?> - Número redondeado: <?=$conFloor?></li>
+    <li>Resultado de <?=$conFloor?> elevado a <?=$conRedondeo?> = <?=$pruebaPow?></li>
+    <li>Raíz cuadrada de <?=$conRedondeo?> = <?=$pruebaSqrt?></li>
+    <li>Número en base 4: <?=$numBase4?> - Número en base 8: <?=$numbase8?></li>
+    <li>Valores del array: 2,4,6,1,6
+        <ul>
+            <li>Valor Mínimo del array: <?=$minimo?></li>
+            <li>Valor Máximo del array: <?=$maximo?></li>
+        </ul>
+    </li>
+</ul>
 <?php
 
 }
