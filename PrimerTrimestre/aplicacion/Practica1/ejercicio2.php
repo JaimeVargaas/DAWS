@@ -2,19 +2,29 @@
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 
+inicioCabecera("Jaime Vargas Báez");
+inicioCuerpo("Ejercicio 2");
+
+echo "Lanzamiento del dado 6 veces<br>";
+
 // lanzar el dado 6 veces
 $numDado = 0;
 $resultados=[];
-for($i=0;$i<=6;$i++) {
+for($i=1;$i<=6;$i++) {
     $numDado = mt_rand(1,6);
+    echo "·Lanzamiento " . $i .  " del dado: " . $numDado ."<br>";
     $resultados[$i]=$numDado;
 }
+
 
 // lanzar un dado un numero n de veces y contar caras
 $contCaras = array_fill(0,6,0);
 
+
 // calcula el numero de veces que se va a tirar el dado
 $numVeces = mt_rand(1,1000);
+
+echo "<br><br>El dado se ha lanzado $numVeces veces";
 
 // conteo de cada cara
 for($i=0;$i<=$numVeces;$i++) {
@@ -41,30 +51,26 @@ for($i=0;$i<=$numVeces;$i++) {
     }
 }
 
+echo "<br>El número 1 ha salido: $contCaras[0] veces";
+echo "<br>El número 2 ha salido: $contCaras[1] veces";
+echo "<br>El número 3 ha salido: $contCaras[2] veces";
+echo "<br>El número 4 ha salido: $contCaras[3] veces";
+echo "<br>El número 5 ha salido: $contCaras[4] veces";
+echo "<br>El número 6 ha salido: $contCaras[5] veces";
 //dibuja la plantilla de la vista
-inicioCabecera("Jaime Vargas Báez");
-inicioCuerpo("Ejercicio 2");
-cuerpo($resultados, $contCaras);  
+
+cuerpo();  
 finCuerpo();
 
 //vista
-function cuerpo($resultados,$contCaras)
+function cuerpo()
 {
 
 
 
 ?>
 <!-- Ahora hacer html para que salga en la vista -->
-<h1>Lanzamiento de un dado</h1>
-<h2>Dado lanzado 6 veces</h2>
-<ul>
-    <li>Lanzamiento 1: <?= $resultados[0]?></li>
-    <li>Lanzamiento 2: <?= $resultados[1]?></li>
-    <li>Lanzamiento 3: <?= $resultados[2]?></li>
-    <li>Lanzamiento 4: <?= $resultados[3]?></li>
-    <li>Lanzamiento 5: <?= $resultados[4]?></li>
-    <li>Lanzamiento 6: <?= $resultados[5]?></li>
-</ul>
+
 <?php
 
 }
