@@ -4,7 +4,7 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
-inicioCuerpo("Practica 1");
+inicioCuerpo("Ejercicio 1");
 cuerpo();  
 finCuerpo();
 
@@ -26,7 +26,7 @@ $pruebaPow = pow($conFloor, $conRedondeo);
 $pruebaSqrt = sqrt($conRedondeo);
 
 // Prueba de dechex
-$hex = dechex($num);
+// $hex = dechex($num);
 
 //Prueba de base_convert
 $numBase4 = 321;
@@ -49,7 +49,6 @@ $octal = 012;
 <ul>
     <li>Binario - <?= decbin($binario)?> - Decimal - <?=$binario?></li>
     <li>Octal -  <?= decoct($octal)?> - Decimal - <?= $octal ?></li>
-    <li>Hexadecimal - <?=dechex($hex)?> - Decimal - <?= $hex ?></li>
 </ul>
 
 <h3>Resultados de las funciones</h3>
