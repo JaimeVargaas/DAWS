@@ -61,6 +61,8 @@ foreach($array3 as $array) {
 
 
 
+
+
 //dibuja la plantilla de la vista
 
 cuerpo();  
