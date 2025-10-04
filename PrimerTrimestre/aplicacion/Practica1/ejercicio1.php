@@ -8,6 +8,7 @@ inicioCuerpo("Ejercicio 1");
 cuerpo();  
 finCuerpo();
 
+
 //vista
 function cuerpo()
 {
