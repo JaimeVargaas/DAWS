@@ -3,7 +3,7 @@
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 
 $ubicacion = [
-    "Index Principa" => "../../index.php",
+    "Index Principal" => "../../index.php",
     "Relación I: arrays, fechas, librería math" => "./index.php",
     "Ejercicio 6" => "ejercicio6.php"
 ];

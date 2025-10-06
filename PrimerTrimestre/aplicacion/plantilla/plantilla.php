@@ -22,22 +22,18 @@ function inicioCabecera(string $titulo)
 
     <head>
         <meta charset="utf-8">
-        <!-- Always force latest IE rendering engine (even in
-intranet) & Chrome Frame
- Remove this if you use the .htaccess -->
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame Remove this if you use the .htaccess -->
         <meta http-equiv="X-UA-Compatible"
             content="IE=edge,chrome=1">
         <title><?php echo $titulo ?></title>
         <meta name="description" content="">
         <meta name="author" content="Administrador">
         <meta name="viewport" content="width=device-width; initialscale=1.0">
-        <!-- Replace favicon.ico & apple-touch-icon.png in the root
-of your domain and delete these references -->
-        <link rel="icon" href="/favicon.ico">
+        <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+        <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-        <link rel="stylesheet" type="text/css"
-            href="/estilos/base.css">
+        <link rel="stylesheet" type="text/css" href="../../estilos/base.css">
     <?php
 }
 function finCabecera()
@@ -53,6 +49,15 @@ function inicioCuerpo(string $cabecera)
 
     <body>
         <div id="documento">
+            <div id="barraMenu">
+                <ul>
+                    <?php
+                    if (isset($GLOBALS['ubicacion'])) {
+                        mostrarBarraUbicacion($GLOBALS['ubicacion']);
+                    }
+                    ?>
+                </ul>
+            </div>
 
             <header>
                 <h1 id="titulo"><?php echo $cabecera; ?></h1>
@@ -60,17 +65,6 @@ function inicioCuerpo(string $cabecera)
 
             <div id="barraLogin">
 
-            </div>
-            <div id="barraMenu">
-                <ul>
-                    <li><a href="/index.php">Inicio</a></li>
-                    <li><a href="/aplicacion/pruebas/index.php">Pruebas</a></li>
-                    <li><a href="/aplicacion/pruebas/sintaxisBasica.php">Sintaxis básica</a></li>
-                    <li><a href="/aplicacion/Practica1/index.php">Práctica 1</a></li>
-                </ul>
-            </div>
-
-            <div>
             <?php
         }
         function finCuerpo()
@@ -82,7 +76,7 @@ function inicioCuerpo(string $cabecera)
             <footer>
                 <hr width="90%" />
                 <div>
-                    &copy; Copyright by Profesor
+                    &copy; Copyright by Rául Pérez Repiso
                 </div>
             </footer>
         </div>
@@ -91,8 +85,7 @@ function inicioCuerpo(string $cabecera)
     </html>
 <?php
         }
-
-function mostrarBarraUbicacion(array $ubicacion)
+        function mostrarBarraUbicacion(array $ubicacion)
         {
             echo "<nav class='barraModdle'>";
             $total = count($ubicacion);
@@ -107,5 +100,5 @@ function mostrarBarraUbicacion(array $ubicacion)
                 }
             }
 
-            echo "</nav><br>";
+            echo "</nav>";
         }

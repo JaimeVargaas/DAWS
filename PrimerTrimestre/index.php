@@ -1,15 +1,18 @@
 <?php
 include_once(dirname(__FILE__) . "/cabecera.php");
 
+$ubicacion = [
+    "Index Principal" => "/index.php",
+];
+$GLOBALS['ubicacion'] = $ubicacion;
 
-
-// dibuja la plantilla de la vista
-inicioCabecera("APLICACION PRUEBA");
+// Dibuja la plantilla de la vista
+inicioCabecera("2DAW APLICACIÓN");
 cabecera();
 finCabecera();
 
-inicioCuerpo("2DAW APLICACION");
-cuerpo(); // llamo a la vista
+inicioCuerpo("2DAW APLICACIÓN");
+cuerpo();
 finCuerpo();
 
 
@@ -17,12 +20,15 @@ finCuerpo();
 // **********************************************************
 
 function cabecera() {}
-
 //vista
 function cuerpo()
 {
-?>
-        <a href="./aplicacion/pruebas/index.php">Acceso a pruebas</a>
+?>  
+    <h1>Pruebas y Ejercicios</h1>
+    <ul>
+        <li><a href="/aplicacion/pruebas/index.php">Pruebas</a></li>
+        <li><a href="/aplicacion/practica1/index.php">Práctica 1</a></li>
+    </ul>
 <?php
 
 }
