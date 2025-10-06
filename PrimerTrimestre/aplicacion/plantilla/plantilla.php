@@ -49,6 +49,11 @@ function inicioCuerpo(string $cabecera)
 
     <body>
         <div id="documento">
+
+            <header>
+                <h1 id="titulo"><?php echo $cabecera; ?></h1>
+            </header>
+
             <div id="barraMenu">
                 <ul>
                     <?php
@@ -59,9 +64,6 @@ function inicioCuerpo(string $cabecera)
                 </ul>
             </div>
 
-            <header>
-                <h1 id="titulo"><?php echo $cabecera; ?></h1>
-            </header>
 
             <div id="barraLogin">
 

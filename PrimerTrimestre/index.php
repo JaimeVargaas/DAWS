@@ -24,7 +24,7 @@ function cabecera() {}
 function cuerpo()
 {
 ?>  
-    <h1>Pruebas y Ejercicios</h1>
+    <h2>Pruebas y Ejercicios</h2>
     <ul>
         <li><a href="/aplicacion/pruebas/index.php">Pruebas</a></li>
         <li><a href="/aplicacion/practica1/index.php">Práctica 1</a></li>
