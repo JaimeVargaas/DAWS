@@ -2,6 +2,12 @@
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 
+$ubicacion = [
+    "Index Principa" => "../../index.php",
+    "Relación I: arrays, fechas, librería math" => "./index.php",
+    "Ejercicio 1" => "ejercicio1.php"
+];
+
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 1");

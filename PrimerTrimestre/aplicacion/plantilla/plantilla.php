@@ -91,3 +91,21 @@ function inicioCuerpo(string $cabecera)
     </html>
 <?php
         }
+
+function mostrarBarraUbicacion(array $ubicacion)
+        {
+            echo "<nav class='barraModdle'>";
+            $total = count($ubicacion);
+            $contador = 0;
+
+            foreach ($ubicacion as $nombre => $url) {
+                $contador++;
+                if ($contador < $total) {
+                    echo "<a href='{$url}'>{$nombre}</a> &raquo; ";
+                } else {
+                    echo "<span>{$nombre}</span>";
+                }
+            }
+
+            echo "</nav><br>";
+        }
