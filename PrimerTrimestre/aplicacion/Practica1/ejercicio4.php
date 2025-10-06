@@ -7,6 +7,7 @@ $ubicacion = [
     "Relación I: arrays, fechas, librería math" => "./index.php",
     "Ejercicio 4" => "ejercicio4.php"
 ];
+$GLOBALS['ubicacion'] = $ubicacion;
 
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 4");
@@ -20,15 +21,6 @@ for ($i = 1; $i <= 5; $i++) {
     }
     $array[] = $filas;
 }
-return $array;
-
-
-
-
-
-
-
-
 
 
 //dibuja la plantilla de la vista
@@ -39,12 +31,14 @@ finCuerpo();
 //vista
 function cuerpo($array)
 {
-
-    foreach ($array as $i =>$filas) {
-        foreach($filas as $j) {
-            echo "{$j}";
+   echo "<pre>"; 
+    foreach ($array as $filas) {
+        foreach ($filas as $j) {
+            echo "{$j} ";
         }
+        echo "\n";
     }
+    echo "</pre>";
 ?>
     <!-- Ahora hacer html para que salga en la vista -->
 

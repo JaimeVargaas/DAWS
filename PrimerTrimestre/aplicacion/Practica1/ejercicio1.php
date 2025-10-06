@@ -7,12 +7,14 @@ $ubicacion = [
     "Relación I: arrays, fechas, librería math" => "./index.php",
     "Ejercicio 1" => "ejercicio1.php"
 ];
+$GLOBALS['ubicacion'] = $ubicacion;
 
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 1");
 cuerpo();  
 finCuerpo();
+
 
 //vista
 function cuerpo()

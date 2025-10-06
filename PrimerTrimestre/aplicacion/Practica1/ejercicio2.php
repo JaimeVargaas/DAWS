@@ -7,6 +7,7 @@ $ubicacion = [
     "Relación I: arrays, fechas, librería math" => "./index.php",
     "Ejercicio 2" => "ejercicio2.php"
 ];
+$GLOBALS['ubicacion'] = $ubicacion;
 
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 2");
