@@ -26,8 +26,9 @@ function cuerpo()
 ?>  
     <h2>Pruebas y Ejercicios</h2>
     <ul>
-        <li><a href="/aplicacion/pruebas/index.php">Pruebas</a></li>
-        <li><a href="/aplicacion/practica1/index.php">Práctica 1</a></li>
+        <li><a href="./aplicacion/pruebas/">Pruebas</a></li>
+        <li><a href="./aplicacion/Practica1/">Práctica 1</a></li>
+        <li><a href="./aplicacion/Practica2/">Práctica 2</a></li>
     </ul>
 <?php
 

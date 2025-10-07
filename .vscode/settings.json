@@ -1,4 +1,27 @@
 {
     "php.validate.executablePath": "C:\\web\\xampp\\php\\php.exe",
-    "php.debug.executablePath": ""
+    "php.debug.executablePath": "",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#394245",
+        "activityBar.background": "#394245",
+        "activityBar.foreground": "#e5dfed",
+        "activityBar.inactiveForeground": "#e5dfed99",
+        "activityBarBadge.background": "#000000",
+        "activityBarBadge.foreground": "#e5dfed",
+        "commandCenter.border": "#e5dfed99",
+        "editorError.foreground": "#000000ff",
+        "editorInfo.foreground": "#000000ff",
+        "editorWarning.foreground": "#000000ff",
+        "sash.hoverBorder": "#394245",
+        "sideBar.border": "#394245",
+        "statusBar.background": "#222729",
+        "statusBar.foreground": "#e5dfed",
+        "statusBarItem.hoverBackground": "#394245",
+        "statusBarItem.remoteBackground": "#222729",
+        "statusBarItem.remoteForeground": "#e5dfed",
+        "titleBar.activeBackground": "#222729",
+        "titleBar.activeForeground": "#e5dfed",
+        "titleBar.inactiveBackground": "#22272999",
+        "titleBar.inactiveForeground": "#e5dfed99"
+    }
 }
