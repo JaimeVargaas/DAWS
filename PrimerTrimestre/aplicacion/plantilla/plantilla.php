@@ -76,7 +76,6 @@ function inicioCuerpo(string $cabecera)
                 <br />
             </div>
             <footer>
-                <hr width="90%" />
                 <div>
                     &copy; Copyright by Jaime Vargas Báez - 2 DAW
                 </div>

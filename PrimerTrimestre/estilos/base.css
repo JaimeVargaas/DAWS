@@ -87,9 +87,11 @@ li a:hover {
 footer {
     text-align: center;
     font-size: 0.9em;
-    color: #7f8c8d;
+    color: white;
     margin-top: 60px;
-    padding-top: 30px;
+    padding: 20px;
+    background-color: #4a69bd;
+    font-weight: bold;
 }
 
 .error {

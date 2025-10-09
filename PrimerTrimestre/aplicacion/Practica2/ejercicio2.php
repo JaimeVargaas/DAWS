@@ -33,32 +33,49 @@ function cuerpo($texto)
 ?>
     <h2>Prueba Mb_str_split</h2>
     <?php foreach (mb_str_split($texto) as $i => $valor) { ?>
-    <p>
-        <?=str_repeat("&nbsp", $i) . $valor . "<br>";?>
-    </p>
+        <p>
+            <?= str_repeat("&nbsp", $i) . $valor . "<br>"; ?>
+        </p>
     <?php } ?>
 
     <!-- substr coge el texto que quieras e imprime los caracteres que tu le digas -->
     <h2>Prueba substr</h2>
-    <?php for ($i = 0; $i<=strlen($texto);$i++) { ?>
-    <p>
-        <?=str_repeat("&nbsp", $i) . substr($texto, $i,1) . "<br>";?>
-    </p>
+    <?php for ($i = 0; $i <= strlen($texto); $i++) { ?>
+        <p>
+            <?= str_repeat("&nbsp", $i) . substr($texto, $i, 1) . "<br>"; ?>
+        </p>
     <?php } ?>
 
     <h2>Prueba mb_substr</h2>
-    <?php for ($i = 0;$i<= strlen($texto);$i++) { ?>
-    <p>
-        <?=str_repeat("&nbsp", $i) . mb_substr($texto, $i,1) . "<br>";?>
-    </p>
+    <?php for ($i = 0; $i <= strlen($texto); $i++) { ?>
+        <p>
+            <?= str_repeat("&nbsp", $i) . mb_substr($texto, $i, 1) . "<br>"; ?>
+        </p>
     <?php } ?>
 
     <h2>Prueba cadena en orden inverso</h2>
-    <?php for ($i = strlen($texto);$i>= 0;$i--) { ?>
-    <p>
-        <?=str_repeat("&nbsp", $i) . mb_substr($texto, $i,1) . "<br>";?>
-    </p>
+    <?php
+    $j = 0;
+    for ($i = strlen($texto) - 1; $i >= 0; $i--) { ?>
+        <p>
+            <?= $i % 2 == 0 ? str_repeat("&nbsp", $j) . mb_substr(strtoupper($texto), $i, 1) . "<br>" : str_repeat("&nbsp", $j) . mb_substr(strtolower($texto), $i, 1) . "<br>";
+            $j++; ?>
+        </p>
     <?php } ?>
+
+    <h2>Prueba de cadena en partes de "a"</h2>
+    <?php
+    
+    // explode busca lo que queramos dentro de un texto y lo mete en un array tantas veces lo encuentre
+    $res = explode("a", $texto);
+    foreach ($res as $clave => $valor) {
+        echo "<p>Parte $clave: $valor</p>";
+    }
+    ?>
+    <h2>Buscar la palabra niña y añadirle /mujer</h2>
+    <?php
+    echo str_replace("niña", "niña/mujer","<p>$texto</p>");
+    ?>
 <?php
 
 }

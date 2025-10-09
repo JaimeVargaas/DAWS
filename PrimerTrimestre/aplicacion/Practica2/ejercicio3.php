@@ -9,20 +9,30 @@ $ubicacion = [
 ];
 $GLOBALS['ubicacion'] = $ubicacion;
 
+// hace un rango de 0 a 9 de a a z y de A a Z y el merge lo junta para meterlos en el array
+$array = array_merge(range('0', '9'), range('A', 'Z'), range('a', 'z'));
+
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 3");
-cuerpo();  
+cuerpo($array);  
 finCuerpo();
 
 
 //vista
-function cuerpo()
+function cuerpo($array)
 {
 
-
 ?>
-<!-- Ahora hacer html para que salga en la vista -->
+<h2>Cadena aleatoria generada</h2>
+<?php 
+$resultado='';
+for($i=0;$i<20;$i++) {
+    $num = mt_rand(1,count($array)-1);
+    $resultado.=$array[$num];
+}
+    echo "<p>$resultado</p>"
+?>
 <?php
 
 }
