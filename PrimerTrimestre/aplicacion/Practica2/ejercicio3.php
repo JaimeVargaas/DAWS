@@ -31,7 +31,13 @@ for($i=0;$i<20;$i++) {
     $num = mt_rand(1,count($array)-1);
     $resultado.=$array[$num];
 }
-    echo "<p>$resultado</p>"
+    echo "<p>$resultado</p>";
+
+    $resultado2='';
+for($i=0;$i<20;$i++) {
+    $resultado2.=chr(mt_rand(48,112));
+}
+    echo "<p>$resultado2</p>";
 ?>
 <?php
 

@@ -29,6 +29,7 @@ function cuerpo()
         <li><a href="./aplicacion/pruebas/">Pruebas</a></li>
         <li><a href="./aplicacion/Practica1/">Práctica 1</a></li>
         <li><a href="./aplicacion/Practica2/">Práctica 2</a></li>
+        <li><a href="./aplicacion/Practica3/">Práctica 3</a></li>
     </ul>
 <?php
 
