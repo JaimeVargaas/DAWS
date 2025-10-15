@@ -114,9 +114,9 @@ footer {
     font-size: 15px;
 }
 
-h2 {
+h2,h3 {
     margin-left: 10px;
-    font-size: 1.8em;
+
 }
 
 .e1 {

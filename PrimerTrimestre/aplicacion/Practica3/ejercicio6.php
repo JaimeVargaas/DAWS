@@ -1,11 +1,12 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
+include 'libreria.php';
 
 $ubicacion = [
     "Index Principal" => "../../index.php",
-    "Relación III: " => "./index.php",
-    "Ejercicio 1" => "ejercicio1.php"
+    "Relación III: Funciones" => "./index.php",
+    "Ejercicio 6" => "ejercicio6.php"
 ];
 $GLOBALS['ubicacion'] = $ubicacion;
 
@@ -14,12 +15,12 @@ $GLOBALS['ubicacion'] = $ubicacion;
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
 inicioCuerpo("Ejercicio 1");
-cuerpo($arrayHER, $arrayNOW);
+cuerpo();
 finCuerpo();
 
 
 //vista
-function cuerpo($arrayHER, $arrayNOW)
+function cuerpo()
 {
 
 
