@@ -1,7 +1,7 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
-include 'libreria.php';
+include_once 'libreria.php';
 
 $ubicacion = [
     "Index Principal" => "../../index.php",
@@ -14,7 +14,7 @@ $GLOBALS['ubicacion'] = $ubicacion;
 
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
-inicioCuerpo("Ejercicio 1");
+inicioCuerpo("Ejercicio 2");
 cuerpo();
 finCuerpo();
 

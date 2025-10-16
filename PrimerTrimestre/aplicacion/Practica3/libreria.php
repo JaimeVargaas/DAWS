@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * Undocumented function
+ *
+ * @param array $array
+ * @param [type] $pos
+ * @param [type] $valor
+ * @param [type] $num
+ * @return boolean
+ */
+
+// la & sirve para modificar la variable que metemos desde el archivo
 function cuantasVeces(array &$array,$pos,$valor,&$num):bool{
 
     // se hace static para que no se borre cada vez que llamemos al metodo 
@@ -11,11 +23,15 @@ function cuantasVeces(array &$array,$pos,$valor,&$num):bool{
         $array[$pos]=$valor;
         return true;
     }
-
-
 }
 
-function generarCadena($num):string{
+/**
+ * Undocumented function
+ *
+ * @param [type] $num
+ * @return string
+ */
+function generarCadena($num):string|false{
     $resultado = "";
     if ($num <= 0)
         $resultado = false;
@@ -28,7 +44,13 @@ function generarCadena($num):string{
     return $resultado;
 }
 
-function Operaciones(...$args){
+/**
+ * Undocumented function
+ *
+ * @param [type] ...$args
+ * @return integer
+ */
+function Operaciones(...$args):int{
     $resultado = 0;
     // si son menos de 3 argumentos devuelve fallo
     if (count($args) < 3) return "Necesitas al menos 3 parámetros para que funcione esta función";
@@ -78,7 +100,7 @@ function devuelve(&$a, $b = 3, $c = 10):float{
     return $resultado;
 }
 
-function hacerOperacion($string, $a, $b){
+function hacerOperacion($string, $a, $b):int|false{
     switch ($string) {
         case "suma":
             return suma($a, $b);
@@ -103,3 +125,32 @@ function resta($a, $b){
 function multiplicacion($a, $b){
     return $a * $b;
 }
+
+/**
+ * Undocumented function
+ *
+ * @param [type] $num1
+ * @param [type] $num2
+ * @param callable $funcion
+ * @return integer
+ */
+// devuelve el resultado de los dos numeros y la funcion que se mete como parametro
+// callable se le indica para que sepa que es una funcion
+function llamadaAFuncion($num1,$num2,callable $funcion):int {
+    return $funcion($num1,$num2);
+}
+
+/**
+ * Undocumented function
+ *
+ * @param array $array
+ * @return array
+ */
+function ordenar(array $array):array {
+    // usa una funcion callback anonima para ordenarlo de forma descendente, usando la funcion usort
+    usort($array,fn($a,$b)=>strlen($b)-strlen($a));
+
+    return $array;
+}
+
+?>

@@ -1,7 +1,7 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
-include 'libreria.php';
+include_once 'libreria.php';
 
 $ubicacion = [
     "Index Principal" => "../../index.php",
