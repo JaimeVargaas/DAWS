@@ -24,7 +24,18 @@ function cuerpo()
 
 
 ?>
-<?php
+    <h2>Prueba de la clase InstrumentoBase</h2>
+    <?php
+        // $obj = new InstrumentoBase();
+        // $obj2 = new InstrumentoBase("Guitarra flamenca",5);
+        // echo "<p>$obj</p>";
+        // echo "<p>$obj2</p>";
+
+        // echo "<h3>Prueba métodos sonido, envejecer y afinar</h3>";
+        // $obj2->envejecer();
+        // echo "<p>$obj2</p>";
+        // echo "<p>".$obj2->sonido()."</p>";
+        // echo "<p>".$obj2->afinar()."</p>";
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php

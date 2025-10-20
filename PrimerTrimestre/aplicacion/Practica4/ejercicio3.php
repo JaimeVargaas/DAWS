@@ -24,7 +24,10 @@ function cuerpo()
 
 
 ?>
+<h2>Prueba de clase Instrumento Viento</h2>
 <?php
+    $obj = new InstrumentoViento();
+    echo "<p>$obj</p>";
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php
