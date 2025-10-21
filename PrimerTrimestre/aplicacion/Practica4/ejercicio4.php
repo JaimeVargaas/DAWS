@@ -24,7 +24,15 @@ function cuerpo()
 
 
 ?>
+
+<h1>Prueba de clase flauta</h1>
 <?php
+    $array = ["edad"=>15,"material"=>"plastico"];
+    $obj = Flauta::CrearDesdeArray($array);
+    $obj3 = clone $obj;
+
+    echo "<p>$obj</p>";
+    echo "<p>$obj3</p>";
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php

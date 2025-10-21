@@ -17,16 +17,8 @@ abstract class InstrumentoBase {
         $this->_descripcion=$cadena;
     }
 
-    public function getEdad():string {
-        return $this->_edad;
-    }
-
-    public function setEdad(int $edad):void {
-        $this->_edad=$edad;
-    }
-
-    public function getOrdenCreacion():Int {
-        return $this->ordenCreacion;
+    public function setOrdenCreacion(int $num):void {
+        $this->ordenCreacion=$num;
     }
 
     // Constructor
