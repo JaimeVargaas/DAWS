@@ -44,6 +44,27 @@ abstract class InstrumentoBase {
         $this->ordenCreacion de un total de " . self::$contador. " Tiene $this->_edad año(s). La clase es " . get_class($this);
     } 
 
+    // Deshabilitar la sobre carga
+    public function __set($name, $value):void
+    {
+        ;
+    }
+
+    public function __get($name):mixed
+    {
+        return 0;
+    }
+
+    public function __isset($name):bool
+    {
+        return false;
+    }
+
+    public function __unset($name):void
+    {
+        ;
+    }
+
 }
 
 ?>

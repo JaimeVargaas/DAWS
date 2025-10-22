@@ -24,7 +24,11 @@ function cuerpo()
 
 
 ?>
+
+<h2>Prueba de clase Persona</h2>
 <?php
+    $obj = Persona::registrarPersona("Jaime","01/08/2006","carrera 12","Antequera",EstadoCivil::pareja);
+    echo "<p>$obj</p>";
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php
