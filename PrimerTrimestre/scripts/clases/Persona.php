@@ -20,7 +20,16 @@ class Persona
     // constructor statico
     static public function registrarPersona(String $nombre,String $fecNac,String $domicilio,String $localidad, EstadoCivil $estado) {
         // esta funcion cuando se llama, accede a su propio constructor para crear el objeto ya que el constructor es privado
-        return new Persona($nombre,$fecNac,$domicilio,$localidad,$estado);
+       $newPersona = new Persona();
+       $newPersona->_nombre = $nombre;
+       $newPersona->_fec_nac = $fecNac;
+       $newPersona->_domicilio=$domicilio;
+       $newPersona->_localidad=$localidad;
+       $newPersona->_estado=$estado;
+
+       // se puede hacer llamando al set
+    //    $newPersona->set_estado($estado);
+       return $newPersona;
     }
 
     public function __toString()

@@ -50,6 +50,19 @@ header {
     text-align: center;
 }
 
+header div a{
+    display: inline-block;
+    margin-left: 20px;
+    text-decoration: none;
+    margin-top: 10px;
+    color: white;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+header a:hover {
+    transform: translateY(-3px);
+}
+
 #titulo {
     font-size: 2em;
     margin: 0;
@@ -126,3 +139,4 @@ h2,h3 {
 p {
     margin-left: 10px;
 }
+

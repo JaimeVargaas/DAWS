@@ -24,7 +24,21 @@ function cuerpo()
 
 
 ?>
-<?php
+    <h2>Prueba fibonacci usando clase</h2>
+    <?php
+
+    foreach (new SerieFibonacci(10) as $valor) {
+        echo "$valor &nbsp;";
+    }
+
+    ?>
+
+    <h2>Prueba fibonacci usando método</h2>
+
+    <?php 
+        foreach (SerieFibonacci::fFibonacci(10) as $valor) {
+        echo "$valor &nbsp;";
+    }
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php

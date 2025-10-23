@@ -52,6 +52,14 @@ function inicioCuerpo(string $cabecera)
 
             <header>
                 <h1 id="titulo"><?php echo $cabecera; ?></h1>
+                <div>
+                    <a href="/index.php">Inicio</a>
+                    <a href="/aplicacion/pruebas/index.php">Pruebas</a>
+                    <a href="/aplicacion/Practica1/index.php">Práctica 1</a>
+                    <a href="/aplicacion/Practica2/index.php">Práctica 2</a>
+                    <a href="/aplicacion/Practica3/index.php">Práctica 3</a>
+                    <a href="/aplicacion/Practica4/index.php">Práctica 4</a>
+                </div>
             </header>
 
             <div id="barraMenu">
