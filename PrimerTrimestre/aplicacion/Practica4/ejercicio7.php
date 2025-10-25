@@ -21,10 +21,22 @@ finCuerpo();
 //vista
 function cuerpo()
 {
-
-
 ?>
+<h2>Prueba de ClaseMisPropiedades</h1>
 <?php
+    $Objeto= new ClaseMisPropiedades();
+    $Objeto->propPublica="publica";
+
+    // $Objeto->_propPrivada="privada"; //no es valida al ser privada
+    $Objeto->propiedad1=25;
+    $Objeto->propiedad2="cadena de texto";
+    echo "la propiedad 1 vale ".$Objeto->propiedad1."<br>";
+
+    // echo $Objeto->propiedad3; // esto debería dar un error al no haber asignado previamente la propiedad
+
+    foreach($Objeto as $clave=>$valor) {
+        echo $clave . ": $valor<br>";
+    }
     ?>
     <!-- Ahora hacer html para que salga en la vista -->
 <?php
