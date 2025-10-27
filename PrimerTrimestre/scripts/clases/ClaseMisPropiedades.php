@@ -5,6 +5,7 @@ class ClaseMisPropiedades implements Iterator
     private array $_propiedades = [];
     public mixed $propPublica;
     private mixed $_propPrivada;
+    // variables extras para poder hacer el iterator
     private int $pos = 0;
     private array $iterable;
 
@@ -35,6 +36,8 @@ class ClaseMisPropiedades implements Iterator
             throw new Exception("No existe la propiedad $name");
     }
 
+    // Funcion que usa la variable iterable para copiar el array propiedades y añadirles al final prop publica y prop privada, 
+    // y añadirles oi antes de cada clave
     private function actualizarIterable(): void{
         $this->iterable = [];
         foreach ($this->_propiedades as $clave => $valor) {

@@ -24,7 +24,7 @@ function cabecera()
 function cuerpo()
 {
 ?>
-    <h2>Relacion 3: </h2>
+    <h2>Relacion 4: </h2>
     <ul>
         <a class="e1" href="./ejercicio1.php">Ejercicio 1</a><br>
         <a class="e1" href="./ejercicio2.php">Ejercicio 2</a><br>
