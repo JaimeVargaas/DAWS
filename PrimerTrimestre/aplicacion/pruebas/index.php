@@ -24,6 +24,7 @@ function cuerpo()
 ?>
         <a href="./sintaxisBasica.php">Pruebas sintaxis básica</a>
         <a href="./string.php">String</a>
+        <a href="./formulario.php">Formulario</a>
 <?php
 
 }
