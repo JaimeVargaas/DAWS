@@ -70,5 +70,17 @@ function cuerpo()
     \VALFILTER\validaCadena($var,25,"Cadena demasiado larga");
     echo "<p>$var</p>";
     ?>
+
+    <h2>Validar formulario</h2>
+    <form action="" method="post">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" maxlength="25" minlength=""> <br>
+        <label for="passwd">Contraseña: </label>
+        <input type="password" id="passwd" maxlength="15"> <br>
+        <label for="fecNac">Fecha de nacimiento: </label>
+        <input type="date" id="fecNac">
+        <label for="fecCarnet">Fecha de nacimiento: </label>
+        <input type="date" id="fecCarnet">
+    </form>
 <?php
 }
