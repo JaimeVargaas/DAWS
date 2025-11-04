@@ -26,6 +26,8 @@ $datos = [
     "Estado" => " ",
 
     "Estudios" => " ",
+    // claves para los checkboxes de estudios
+    "estados2" => [],
     "Hermanos" => 0,
     "Sueldo" => 1100
 
@@ -188,7 +190,8 @@ if (isset($_POST["crear"])) {
     else if (in_array("0", $estudio) && count($_POST["estados2"]) > 1) {
         $errores["estudios"][] = "Si marcas la opcion sin estudios no puedes marcar nada mas";
     }
-    $datos["estudios"] = $estudio;
+    // Guardar la selección de estudios en la misma clave que usa el formulario
+    $datos["estados2"] = $estudio;
 
     // Si todo es válido, puedes construir el texto de estudios seleccionados
     // $datos["estudiosTexto"] = array_map(function ($codigo) use ($estudiosValidos) {
@@ -220,16 +223,48 @@ if (isset($_POST["crear"])) {
 
 }
 
-function mostarResumen(array $datos) {
-       foreach ($datos as $clave => $valor) {
-    if (is_array($valor)) {
-        foreach ($valor as $subclave => $valor2) {
-            echo "<p>$clave [$subclave]: $valor2</p>";
-        }
+function resumen($datos)
+{
+    $nombre = $datos["nombre"];
+    $contraseña = $datos["contraseña"];
+    $fechaNacimiento = $datos["FechaNacimiento"];
+    $fechaCarnet = $datos["fechaCarnet"];
+    $hora = $datos["Hora"];
+    $estadoTexto = $datos["estadoTexto"] ?? "";
+    $hermanos = $datos["Hermanos"];
+    $sueldo = $datos["Sueldo"];
+
+    echo "<h2>Resumen de datos introducidos</h2>";
+    echo "<ul>";
+    echo "<li><strong>Nombre:</strong> {$nombre}</li>";
+    echo "<li><strong>Contraseña:</strong> {$contraseña}</li>";
+    echo "<li><strong>Fecha de nacimiento:</strong> {$fechaNacimiento}</li>";
+    echo "<li><strong>Fecha de carnet:</strong> {$fechaCarnet}</li>";
+    echo "<li><strong>Hora de despertarse:</strong> {$hora}</li>";
+    echo "<li><strong>Estado:</strong> {$estadoTexto}</li>";
+
+    echo "<li><strong>Estudios:</strong> ";
+    if (!empty($datos["estados2"])) {
+        $estudiosValidos = [
+            "0" => "Sin estudios",
+            "1" => "Primaria",
+            "2" => "Secundaria",
+            "3" => "Bachillerato",
+            "4" => "Ciclo formativo",
+            "5" => "Universitarios"
+        ];
+        $estudiosTexto = array_map(function($codigo) use ($estudiosValidos) {
+            return $estudiosValidos[$codigo] ?? "Desconocido";
+        }, $datos["estados2"]);
+        echo implode(", ", $estudiosTexto);
     } else {
-        echo "<p>$clave: $valor</p>";
+        echo "No seleccionado";
     }
-}
+    echo "</li>";
+
+    echo "<li><strong>Número de hermanos:</strong> {$hermanos}</li>";
+    echo "<li><strong>Sueldo:</strong> {$sueldo} €</li>";
+    echo "</ul>";
 }
 
 //dibuja la plantilla de la vista
@@ -243,6 +278,8 @@ finCuerpo();
 //vista
 function cabecera() {}
 
+
+
 //vista
 function cuerpo($datos, $errores)
 {
@@ -253,7 +290,12 @@ function cuerpo($datos, $errores)
     <br>
 
 <?php
-    formulario($datos, $errores);
+    if (empty($errores) && isset($_POST["crear"])) {
+        resumen($datos);
+    } else {
+        formulario($datos, $errores);
+}
+
 }
 
 function formulario($datos, $errores)
@@ -318,27 +360,27 @@ function formulario($datos, $errores)
 
         <!-- ----------------------------------- -->
         <input type="checkbox" name="estados2[]" id="sinEstudios" value="0"
-            <?php if (($datos["estados2"] ?? "") == "0") echo "checked"; ?>>
+            <?php if (in_array("0", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Sin estudios</label><br>
-
+        
         <input type="checkbox" name="estados2[]" id="primaria" value="1"
-            <?php if (($datos["estados2"] ?? "") == "1") echo "checked"; ?>>
+            <?php if (in_array("1", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Primaria</label><br>
 
         <input type="checkbox" name="estados2[]" id="secundaria" value="2"
-            <?php if (($datos["estados2"] ?? "") == "2") echo "checked"; ?>>
+            <?php if (in_array("2", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Secundaria</label><br>
 
         <input type="checkbox" name="estados2[]" id="bachillerato" value="3"
-            <?php if (($datos["estados2"] ?? "") == "3") echo "checked"; ?>>
+            <?php if (in_array("3", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Bachillerato</label><br>
 
         <input type="checkbox" name="estados2[]" id="ciclo" value="4"
-            <?php if (($datos["estados2"] ?? "") == "4") echo "checked"; ?>>
+            <?php if (in_array("4", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Ciclo formativo</label><br>
 
         <input type="checkbox" name="estados2[]" id="universitario" value="5"
-            <?php if (($datos["estados2"] ?? "") == "5") echo "checked"; ?>>
+            <?php if (in_array("5", $datos["estados2"] ?? [])) echo "checked"; ?>>
         <label for="incorrecto">Universitarios</label><br>
         <!-- ----------------------------------- -->
         <label for="Hermanos">Número de hermanos: </label>
@@ -351,8 +393,6 @@ function formulario($datos, $errores)
         <input type="submit" class="boton" name="crear" value="Crear">
     </form>
 
-    <h3>Resumen del formulario</h3>
-    <?php mostarResumen($datos)?>
 <?php
 
 

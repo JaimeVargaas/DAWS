@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #2c3e50;
+    margin: 0;
+    padding: 0;
+}
+
+/* #documento {
+    margin: 40px auto;
+    background-color: #ffffff;
+    width: 960px;
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+} */
+
+#barraMenu {
+    padding: 8px 20px;
+    margin-top: 20px;
+    background-color: #4a69bd;
+}
+
+#barraMenu a,
+#barraMenu span {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.barraModdle a {
+    color: #4a69bd;
+    text-decoration: none;
+    margin-right: 12px;
+    font-weight: 500;
+}
+
+.barraModdle a:hover {
+    text-decoration: underline;
+    color: #1e3799;
+}
+
+header {
+    background-color: #4a69bd;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+header div a{
+    display: inline-block;
+    margin-left: 20px;
+    text-decoration: none;
+    margin-top: 10px;
+    color: white;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+header a:hover {
+    transform: translateY(-3px);
+}
+
+#titulo {
+    font-size: 2em;
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 16px;
+    padding: 0;
+}
+
+li a {
+    display: block;
+    padding: 12px 16px;
+    background-color: #ecf0f1;
+    margin-bottom: 8px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    color: #4a69bd;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+
+li a:hover {
+    background-color: #4a69bd;
+    color: white;
+    box-shadow: 5px 5px 5px #4a69bd;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: white;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #4a69bd;
+    font-weight: bold;
+}
+
+.error {
+    background-color: #ffe6e6;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 20px 0;
+}
+
+.for_texto {
+    border: 1px solid #dcdde1;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+h2,h3 {
+    margin-left: 10px;
+
+}
+
+.e1 {
+    margin: 0 auto;
+}
+
+p {
+    margin-left: 10px;
+}
+
