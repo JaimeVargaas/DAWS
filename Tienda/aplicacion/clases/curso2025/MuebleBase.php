@@ -24,8 +24,30 @@ abstract class MuebleBase {
         if(self::$mueblesCreados>self::MAXIMO_MUEBLES) throw new Exception("Has creado más de los muebles permitidos");
         self::$mueblesCreados++;
 
+        // Si nombre esta mal no se puede continuar creando el objeto
         if(!$this->setNombre($nombre)) throw new Exception("Nombre mal introducido");
+        
+        if(!$this->setFabricante($fabricante))$this->setFabricante("FMu:");
+        if(!$this->setAnio($anio))$this->setAnio(2020);
+        if(!$this->setPais($pais))$this->setPais("ESPAÑA");
+        if(!$this->setMaterialPrincipal($material))$this->setMaterialPrincipal(0);
+        if(!$this->setPrecio($precio))$this->setPrecio(30);
+        if(!$this->setFechaIniVenta($fechaIni))$this->setFechaIniVenta("01/01/2020");
+        if(!$this->setFechaFinVenta($fechaFin))$this->setFechaFinVenta("31/12/2040");
 
+    }
+
+    // Metodo que devuelve un array con el nombre de las propiedades que tiene
+    public function dameListaPropiedades():array {
+        $array = ["Nombre"=>$this->getNombre(), "Fabricante"=>$this->getFabricante(), "Pais"=>$this->getPais(), "Anio"=>$this->getAnio(), "FechaIniVenta"=>$this->getFechaIniVenta(),
+        "FechaFinVenta"=>$this->getFechaFinVenta(), "MaterialPrincipal"=>$this->getMaterialDescripcion(), "Precio"=>$this->getPrecio()];
+
+        return $array;
+    }
+
+    // Método que se le pasa una cadena, el modo y la variable $res y devuelve si tiene esa propiedad
+    public function damePropiedad(string $cadena, string $prop, &$res) {
+        
     }
 
     // GETTERS Y SETTERS
