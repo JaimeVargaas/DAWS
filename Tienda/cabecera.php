@@ -10,7 +10,7 @@ else
 
 
 spl_autoload_register(function ($clase) {
-    $ruta = RUTABASE . "/scripts/clases/";
+    $ruta = RUTABASE . "/scripts/clases/curso2025";
     $fichero = $ruta . "$clase.php";
 
     if (file_exists($fichero)) {
