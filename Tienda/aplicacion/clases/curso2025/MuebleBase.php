@@ -2,21 +2,21 @@
 
 use function VALFILTER\validaRango;
 
-require_once __DIR__ . '/../../../scripts/librerias/validacion.php';
+include_once('/../../../scripts/librerias/validacion.php');
 
 
 abstract class MuebleBase {
     public const MATERIALES_POSIBLES = ["madera","metal","cemento","plastico"];
     const MAXIMO_MUEBLES = 10;
     private static int $mueblesCreados = 0;
-    public string $Nombre;
-    public string $Fabricante = "FMu";
-    public string $pais = "ESPAÑA";
-    public int $anio = 2020;
-    public String $FechaIniVenta = "01/01/2020";
-    public String $FechaFinVenta = "31/12/2040";
-    public int $MaterialPrincipal;
-    public float $Precio = 30;
+    private string $Nombre;
+    private string $Fabricante = "FMu";
+    private string $pais = "ESPAÑA";
+    private int $anio = 2020;
+    private String $FechaIniVenta = "01/01/2020";
+    private String $FechaFinVenta = "31/12/2040";
+    private int $MaterialPrincipal;
+    private float $Precio = 30;
 
     // Constructor
     public function __construct (string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio){
@@ -46,8 +46,39 @@ abstract class MuebleBase {
     }
 
     // Método que se le pasa una cadena, el modo y la variable $res y devuelve si tiene esa propiedad
-    public function damePropiedad(string $cadena, string $prop, &$res) {
-        
+    public function damePropiedad(string $cadena, int $modo, &$res):bool {
+        $metodo = "get".$cadena;
+        if(($modo !== 1 && $modo !== 2)||!property_exists($this,$cadena)) return false;
+        else {
+            if($modo==1) {
+                if(method_exists($this,$metodo)){
+                    $res=$this->$metodo();
+                    return true;
+                }
+                else return false;
+            }
+            else {
+                $res=$this->$cadena;
+                return true;
+            }
+
+        }
+    }
+
+    // Metodo de clase que devuelve true si se pueden crear mas instancias de clase 
+    public static function puedeCrear(&$num) {
+        if(self::getMueblesCreados()>self::MAXIMO_MUEBLES) return false;
+        else {
+            $num = self::MAXIMO_MUEBLES-self::getMueblesCreados();
+            return true;
+        }
+    }
+
+    // toString
+    public function __toString(){
+        return "MUEBLE de clase " . get_class($this) . " con nombre " . $this->getNombre() . ", fabricante " . $this->getFabricante() .
+        ", fabricado en " . $this->getPais() . " a partir del año " . $this->getAnio() . ", vendido desde " . $this->getFechaIniVenta() .
+        " hasta " . $this->getFechaFinVenta() . ", precio de " . $this->getPrecio() . " de material " . $this->getMaterialDescripcion(); 
     }
 
     // GETTERS Y SETTERS
