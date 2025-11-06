@@ -3,8 +3,10 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 
 $ubicacion = [
     "Index Principal" => "/index.php",
+    "Relación VI: Resumen" => "/aplicacion/principal/pruebas.php",
 ];
 $GLOBALS['ubicacion'] = $ubicacion;
+
 
 // Dibuja la plantilla de la vista
 inicioCabecera("2DAW TIENDA");
@@ -34,9 +36,8 @@ function cuerpo()
 
 <h2>Creación de clase MuebleTradicional</h2>
 <?php
-    $carac2 = new Caracteristicas();
+    $carac2 = new Caracteristicas("Color","Blanco","estilo","moderno","ancho",200,"largo",150,"alto",222,"ningunamas","si");
     $muebletradicional = new MuebleTradicional("Jaime","AOC","Alemania",2025,"06/11/2025","09/12/2025",0,35.34,25.3,$carac2,"A30210");
-    $muebletradicional->anadir("Color","Blanco","estilo","moderno","ancho",200,"largo",150,"alto",222,"ningunamas","si");
     echo "<p>$muebletradicional</p>"
 ?>
 
