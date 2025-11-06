@@ -5,7 +5,14 @@ class Caracteristicas implements Iterator{
     private int $cont;
 
     function __construct(...$args){
-        $this->setCaracteristicas($args);
+        if(count($args)%2!=0) unset ($args[count($args)-1]);
+
+        $array = [];
+        for($i=0;$i<count($args)-1;$i+=2) {
+           $array[$args[$i]]=$args[$i+1];
+        }
+
+        $this->setCaracteristicas($array);
     }
 
     //Como funciona: 
@@ -36,6 +43,15 @@ class Caracteristicas implements Iterator{
             else return false;
         }
 
+        // Tostring
+        public function __toString(){
+            $cadena = "";
+            foreach($this->Caracteristicas as $clave => $valor) {
+                $cadena.="$clave:$valor<br>";
+            }
+            return $cadena;
+        }
+
         // Set y get 
         public function getCaracteristicas():array {
             return $this->Caracteristicas;
@@ -50,14 +66,20 @@ class Caracteristicas implements Iterator{
                 if(!array_key_exists($clave,$array))$array[$clave]=100;
                 else if (!is_int($array[$clave])) $array[$clave]=100;
             }
-            // si existe la clave ningunamas no puede tener mas aparte de las obligatorias
-            if(array_key_exists("ningunamas",$array)) {
-                foreach($array as $clave =>$valor) {
-                    if($clave!="ancho"&&$clave!="alto"&&$clave!="largo"&&$clave!="ningunamas") unset($array[$clave]);
-                }
-            }
-
             $this->Caracteristicas=$array;
         }
+
+        public function __set($name, $value){
+            // para que si existe ningunamas no se pueda añadir nada mas
+            $array = $this->getCaracteristicas();
+
+            if(key_exists("ningunamas",$array) && !key_exists($name, $array)) {
+                throw new Exception("No se puede añadir porque existe la propiedad ningunamas");
+            }
+            else $array[$name] = $value;
+
+            $this->setCaracteristicas($array);
+        }
+
 
 }

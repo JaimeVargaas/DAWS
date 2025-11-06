@@ -2,7 +2,7 @@
 
 use function VALFILTER\validaRango;
 
-include_once('/../../../scripts/librerias/validacion.php');
+include_once('../../scripts/librerias/validacion.php');
 
 
 abstract class MuebleBase {
@@ -17,9 +17,10 @@ abstract class MuebleBase {
     private String $FechaFinVenta = "31/12/2040";
     private int $MaterialPrincipal;
     private float $Precio = 30;
+    private Caracteristicas $caracteristicas;
 
     // Constructor
-    public function __construct (string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio){
+    public function __construct (string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio, Caracteristicas $carac){
         // Sumar la instancia que hemos creado y compararla para ver si ha llegado al maximo
         if(self::$mueblesCreados>self::MAXIMO_MUEBLES) throw new Exception("Has creado más de los muebles permitidos");
         self::$mueblesCreados++;
@@ -34,13 +35,14 @@ abstract class MuebleBase {
         if(!$this->setPrecio($precio))$this->setPrecio(30);
         if(!$this->setFechaIniVenta($fechaIni))$this->setFechaIniVenta("01/01/2020");
         if(!$this->setFechaFinVenta($fechaFin))$this->setFechaFinVenta("31/12/2040");
+        $this->caracteristicas=$carac;
 
     }
 
     // Metodo que devuelve un array con el nombre de las propiedades que tiene
     public function dameListaPropiedades():array {
-        $array = ["Nombre"=>$this->getNombre(), "Fabricante"=>$this->getFabricante(), "Pais"=>$this->getPais(), "Anio"=>$this->getAnio(), "FechaIniVenta"=>$this->getFechaIniVenta(),
-        "FechaFinVenta"=>$this->getFechaFinVenta(), "MaterialPrincipal"=>$this->getMaterialDescripcion(), "Precio"=>$this->getPrecio()];
+        $array = ["Nombre", "Fabricante", "Pais", "Anio", "FechaIniVenta",
+        "FechaFinVenta", "MaterialPrincipal", "Precio"];
 
         return $array;
     }
@@ -78,7 +80,29 @@ abstract class MuebleBase {
     public function __toString(){
         return "MUEBLE de clase " . get_class($this) . " con nombre " . $this->getNombre() . ", fabricante " . $this->getFabricante() .
         ", fabricado en " . $this->getPais() . " a partir del año " . $this->getAnio() . ", vendido desde " . $this->getFechaIniVenta() .
-        " hasta " . $this->getFechaFinVenta() . ", precio de " . $this->getPrecio() . " de material " . $this->getMaterialDescripcion(); 
+        " hasta " . $this->getFechaFinVenta() . ", precio de " . $this->getPrecio() . " de material " . $this->getMaterialDescripcion() .
+        "<br>" . $this->caracteristicas; 
+    }
+
+    // Metodo para añadir una nueva caracteristica
+    public function anadir(...$car):void {
+        if(count($car)%2!=0) unset ($car[count($car)-1]);
+
+        $array = $this->caracteristicas->getCaracteristicas();
+        for($i=0;$i<count($car)-1;$i+=2) {
+           $array[$car[$i]]=$car[$i+1];
+        }
+
+        $this->caracteristicas->setCaracteristicas($array);
+    }
+
+    // Metodo exportarCaracteristicas que devuelve una cadena con todas las caracteristicas
+    public function exportarCaracteristicas():string {
+        $cadena = "";
+        foreach($this->caracteristicas as $clave => $valor) {
+            $cadena.= $clave . ":$valor" . PHP_EOL;
+        }
+        return $cadena;
     }
 
     // GETTERS Y SETTERS
@@ -214,9 +238,10 @@ abstract class MuebleBase {
         else return false;
     }
 
-    public static function getMueblesCreados(): int {
+    public function getMueblesCreados(): int {
         return self::$mueblesCreados;
     }
+
 }
 
 

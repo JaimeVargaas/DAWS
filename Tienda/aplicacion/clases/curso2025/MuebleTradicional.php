@@ -4,22 +4,22 @@ final class MuebleTradicional extends MuebleBase {
     private float $Peso = 15;
     private string $Serie = "S01";
 
-    public function __construct(string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio, float $peso, string $serie){
-        parent::__construct($nombre,$fabricante,$pais,$anio,$fechaIni,$fechaFin,$material,$precio);
+    public function __construct(string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio, float $peso,Caracteristicas $carac ,string $serie){
+        parent::__construct($nombre,$fabricante,$pais,$anio,$fechaIni,$fechaFin,$material,$precio,$carac);
         $this->setPeso($peso);
         $this->setSerie($serie);
     }
 
     // tostring
     public function __toString(){
-        return parent::__toString() . ", Peso " . $this->getPeso() . ", Serie " . $this->getSerie(); 
+        return parent::__toString() . "Peso " . $this->getPeso() . ", Serie " . $this->getSerie(); 
     }
 
     // metodo damelistapropiedades
     public function dameListaPropiedades(): array{
         $array = parent::dameListaPropiedades();
-        $array["Peso"] = $this->getPeso();
-        $array["Serie"] = $this->getSerie();
+        array_push($array,"Peso");
+        array_push($array,"Serie");
 
         return $array;
     }

@@ -1,22 +1,22 @@
 <?php
 
 final class MuebleReciclado extends MuebleBase {
-    private int $PorcentajeReciclado = 10;
+    private float $PorcentajeReciclado = 10;
 
-    public function __construct(string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio, int $por){
-        parent::__construct($nombre,$fabricante,$pais,$anio,$fechaIni,$fechaFin,$material,$precio);
+    public function __construct(string $nombre, string $fabricante, string $pais, int $anio, string $fechaIni, string $fechaFin, int $material, float $precio,Caracteristicas $carac ,float $por){
+        parent::__construct($nombre,$fabricante,$pais,$anio,$fechaIni,$fechaFin,$material,$precio,$carac);
         $this->setPorcentajeReciclado($por);
     }
 
     // tostring
     public function __toString(){
-        return parent::__toString() . ", porcentaje de reciclado " . $this->PorcentajeReciclado;
+        return parent::__toString() . "porcentaje de reciclado " . $this->PorcentajeReciclado;
     }
 
     // metodo dameListaPropiedades
     public function dameListaPropiedades(): array{
         $array = parent::dameListaPropiedades();
-        $array["PorcentajeReciclado"] = $this->getPorcentajeReciclado();
+        array_push($array,"PorcentajeReciclado");
         
         return $array;
     }
@@ -42,11 +42,11 @@ final class MuebleReciclado extends MuebleBase {
     }
 
     // get y set
-    public function getPorcentajeReciclado():int{
+    public function getPorcentajeReciclado():float{
         return $this->PorcentajeReciclado;
     }
 
-    public function setPorcentajeReciclado(int $por):bool {
+    public function setPorcentajeReciclado(float $por):bool {
         if($por<0 || $por>100) return false;
         else {
             $this->PorcentajeReciclado=$por;
