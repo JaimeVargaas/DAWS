@@ -60,6 +60,7 @@ function inicioCuerpo(string $cabecera)
                     <a href="/aplicacion/Practica3/index.php">Práctica 3</a>
                     <a href="/aplicacion/Practica4/index.php">Práctica 4</a>
                     <a href="/aplicacion/Practica5/index.php">Práctica 5</a>
+                    <a href="/aplicacion/Practica7/index.php">Práctica 7</a>
                 </div>
             </header>
 
