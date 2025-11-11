@@ -1,7 +1,5 @@
 <?php
 include_once(dirname(__FILE__) . "/../../cabecera.php");
-include_once "../../scripts/clases/Punto.php";
-include_once "./almacenaPuntos.php";
 require_once "../../scripts/librerias/validacion.php";
 
 //controlador
@@ -10,6 +8,8 @@ $ubicacion = [
     "Relación VII: Ficheros" => "/aplicacion/practica7/index.php",
 ];
 $GLOBALS['ubicacion'] = $ubicacion;
+
+global $almacenaPuntos;
 
 // -----------------------------------------
 // EJERCICIO 1
@@ -64,7 +64,6 @@ if (isset($_POST["guardar"])) {
     }
     if ($grosor === "") $errores["grosor"][] = "El grosor no puede estar sin seleccionar";
     $datos["grosor"] = (int)$grosor;
-
 }
 
 
@@ -72,7 +71,7 @@ if (isset($_POST["guardar"])) {
 inicioCabecera("Jaime Vargas Báez");
 cabecera();
 inicioCuerpo("Practica 7");
-cuerpo($puntos,$datos, $errores);  //llamo a la vista
+cuerpo($almacenaPuntos, $datos, $errores);  //llamo a la vista
 finCuerpo();
 // **
 
@@ -85,21 +84,21 @@ function cabecera() {}
 function formulario($datos, $errores)
 {
 ?>
-
+    <h2>Ejercicio 1</h2>
     <form action="" method="post">
         <label for="x">Coordenadas X</label>
-        <input type="text" name="x" value="<?=$datos["x"] ?>">
+        <input type="text" name="x" value="<?= $datos["x"] ?>">
         <?php if (!empty($errores["x"])) { ?>
-            <?php foreach ($errores["x"] as $mensaje){ ?>
+            <?php foreach ($errores["x"] as $mensaje) { ?>
                 <p style="color: red;"><?= $mensaje ?></p>
             <?php } ?>
         <?php } ?>
         <br>
 
         <label for="y">Coordenadas Y</label>
-        <input type="text" name="y" value="<?=$datos["y"] ?>"> 
+        <input type="text" name="y" value="<?= $datos["y"] ?>">
         <?php if (!empty($errores["y"])) { ?>
-            <?php foreach ($errores["y"] as $mensaje){ ?>
+            <?php foreach ($errores["y"] as $mensaje) { ?>
                 <p style="color: red;"><?= $mensaje ?></p>
             <?php } ?>
         <?php } ?>
@@ -120,7 +119,7 @@ function formulario($datos, $errores)
             ?>
         </select>
         <?php if (!empty($errores["combo"])) { ?>
-            <?php foreach ($errores["combo"] as $mensaje){ ?>
+            <?php foreach ($errores["combo"] as $mensaje) { ?>
                 <p style="color: red;"><?= $mensaje ?></p>
             <?php } ?>
         <?php } ?>
@@ -135,7 +134,7 @@ function formulario($datos, $errores)
             <input type="radio" name="grosor" value="3">
         </label><br>
         <?php if (!empty($errores["grosor"])) { ?>
-            <?php foreach ($errores["grosor"] as $mensaje){ ?>
+            <?php foreach ($errores["grosor"] as $mensaje) { ?>
                 <p style="color: red;"><?= $mensaje ?></p>
             <?php } ?>
         <?php } ?>
@@ -144,22 +143,127 @@ function formulario($datos, $errores)
     </form>
 <?php
 }
+
+// -----------------------------------------
+// EJERCICIO 2
+// -----------------------------------------
+/**
+* funcion para escribir en un fichero
+* @param string $nombre nombre del fichero
+* @param mixed $datos valores
+* @return bool devuelve si ejecuta correctamente o hay algún error
+*/
+function escribirAfichero(string $nombre, array $datos):bool{
+    //ruta en la que se guardará el fichero
+    $ruta="/imagenes/puntos";
+    //si no existe la ruta se crea
+    if(!file_exists($ruta))
+        mkdir($ruta);
+    $ruta.=$nombre;
+    //se abre el fichero para escritura
+
+    //si existe añade a lo que ya hay, w si quere que se sobreescriba
+    $fic=fopen($ruta,"a");
+    if(!$fic)
+        return false;
+    //se recorre el array con los datos
+    foreach($datos as $fila)
+    {
+        $linea="";
+        foreach($fila as $columna){
+            $linea.=$columna.",";
+    }
+    $linea.="\r\n";
+    //se escribe en el fichero una linea
+        fputs($fic,$linea);
+    }
+    //se cierra el fichero
+    fclose($fic);
+
+    return true;
+}
+
+function nombreArch() {
+    $ip = str_replace(".","_",$_SERVER['REMOTE_ADDR']);
+    $agente = $_SERVER['HTTP_USER_AGENT'];
+    $navegador = "";
+
+    if (strpos($agente, 'Chrome') !== false && mb_strpos($agente, 'Edge') === false) {
+        $navegador = "chrome";
+    } elseif (mb_strpos($agente, 'Firefox') !== false) {
+        $navegador = "firefox";
+    } elseif (mb_strpos($agente, 'Safari') !== false && mb_strpos($agente, 'Chrome') === false) {
+        $navegador = "safari";
+    } elseif (mb_strpos($agente, 'Edge') !== false || mb_strpos($agente, 'Edg') !== false) {
+        $navegador = "edge";
+    } elseif (mb_strpos($agente, 'Opera') !== false || mb_strpos($agente, 'OPR') !== false) {
+        $navegador = "opera";
+    }
+
+       $nombreArch = "imagen_$ip"."_$navegador.jpg";
+
+    return $nombreArch;
+}
+
+function textArea($almacenaPuntos)
+{
+?>
+    <h2>Ejercicio 2</h2>
+    <textarea style="margin-left: 10px;width:60%;height:200px">
+        <?php
+        $grosor = "";
+        foreach ($almacenaPuntos as $valor) {
+            if ($valor->getGrosor() == 1) $grosor = "Fino";
+            else if ($valor->getGrosor() == 2) $grosor = "Medio";
+            else $grosor = "Grueso";
+            echo "Punto: con valor X " . $valor->getX() . " con valor Y " . $valor->getY() .
+                "de color " . $valor->getColor() . " con grosor " . $grosor . "\n";
+        }
+        ?>
+    </textarea>
+<?php
+}
+
+function crearImagen($almacenaPuntos){
+    // crear la imagen con un ancho y alto de 200
+    $ancho=200;
+    $alto=200;
+    $imagen = imagecreatetruecolor($ancho,$alto);
+
+    // asignar colores, para reservar un color en la imagen
+    $blanco = imagecolorallocate($imagen, 255, 255, 255);
+    $negro = imagecolorallocate($imagen, 0, 0, 0);
+
+    // rellenar el fondo de blanco y dibjar un marco
+    imagefilledrectangle($imagen, 0, 0, $ancho, $alto, $blanco);
+    imagerectangle($imagen, 0, 0, $ancho - 1, $alto - 1, $negro);
+
+    foreach($almacenaPuntos as $punto) {
+        $color = imagecolorallocate($imagen, Punto::COLORES["rgb"][0],Punto::COLORES["rgb"][1],Punto::COLORES["rgb"][2]);
+        $x = $punto->getX();
+        $y = $punto->getY();
+        $grosor = $punto->getGrosor() * 3; // escala visual
+
+        imagefilledellipse($imagen, $x, $y, $grosor, $grosor, $color);
+    }
+}
 ?>
 
 <?php
 //vista
-function cuerpo($puntos,$datos, $errores)
+function cuerpo($almacenaPuntos, $datos, $errores)
 {
+
     if (empty($errores) && isset($_POST["guardar"])) {
         echo "<h2>Punto creado correctamente </h2>";
-            $punto = new Punto((int)$datos["x"],$datos["y"],$datos["color"],$datos["grosor"]);
-            array_push($puntos,$punto);
-            formulario($datos, $errores);
-            print_r($puntos);
+        $punto = new Punto((int)$datos["x"], $datos["y"], $datos["color"], $datos["grosor"]);
+        array_push($almacenaPuntos, $punto);
+        formulario($datos, $errores);
     } else {
         formulario($datos, $errores);
     }
 
+    textArea($almacenaPuntos);
 ?>
 <?php
 }

@@ -24,3 +24,8 @@ include(RUTABASE . "/aplicacion/plantilla/plantilla.php");
 // include(RUTABASE . "/aplicacion/config/acceso_bd.php");
 
  //creo todos los objetos que necesita mi aplicación;
+$punto1 = new Punto(10,10,"black",2);
+$punto2 = new Punto(100,100,"red",3);
+$punto3 = new Punto(200,200,"white",1);
+
+ $almacenaPuntos = [$punto1,$punto2,$punto3];
