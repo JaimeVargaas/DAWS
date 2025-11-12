@@ -230,39 +230,34 @@ function textArea($almacenaPuntos)
 <?php
 }
 
-function crearImagen($almacenaPuntos){
-    // crear la imagen con un ancho y alto de 200
-    $ancho=200;
-    $alto=200;
-    $imagen = imagecreatetruecolor($ancho,$alto);
+// meterme en phpini y quitarle comentario a extension=gd
+function crearImagen(array $puntos, string $rutaImagen): void {
+    $ancho = 500;
+    $alto = 500;
+    $imagen = imagecreatetruecolor($ancho, $alto);
 
-    // asignar colores, para reservar un color en la imagen
     $blanco = imagecolorallocate($imagen, 255, 255, 255);
-    $negro = imagecolorallocate($imagen, 0, 0, 0);
+    imagefill($imagen, 0, 0, $blanco);
 
-    // rellenar el fondo de blanco y dibjar un marco
-    imagefilledrectangle($imagen, 0, 0, $ancho, $alto, $blanco);
+    $negro = imagecolorallocate($imagen, 0, 0, 0);
     imagerectangle($imagen, 0, 0, $ancho - 1, $alto - 1, $negro);
 
-    foreach($almacenaPuntos as $punto) {
-        $color = imagecolorallocate($imagen, Punto::COLORES["rgb"][0],Punto::COLORES["rgb"][1],Punto::COLORES["rgb"][2]);
-        $x = $punto->getX();
-        $y = $punto->getY();
-        $grosor = $punto->getGrosor() * 3; // escala visual
-
-        imagefilledellipse($imagen, $x, $y, $grosor, $grosor, $color);
+    foreach ($puntos as $p) {
+        $rgb = Punto::COLORES[$p->getColor()]['rgb'];
+        $color = imagecolorallocate($imagen, $rgb[0], $rgb[1], $rgb[2]);
+        $radio = $p->getGrosor() * 3;
+        imagefilledellipse($imagen, $p->getX(), $p->getY(), $radio, $radio, $color);
     }
 
-    imagejpeg($imagen, __DIR__ . "/../../imagenes/puntos/" . nombreArch());
+    imagejpeg($imagen, $rutaImagen);
+    imagedestroy($imagen);
 }
 ?>
 
 <?php
 //vista
 function cuerpo($almacenaPuntos, $datos, $errores)
-{
-    $archivo = nombreArch();
-    escribirAfichero($archivo,$almacenaPuntos);
+{   
 
     if (empty($errores) && isset($_POST["guardar"])) {
         echo "<h2>Punto creado correctamente </h2>";
@@ -273,8 +268,14 @@ function cuerpo($almacenaPuntos, $datos, $errores)
         formulario($datos, $errores);
     }
     textArea($almacenaPuntos);
+
+    $archivo = nombreArch();
+    $rutaImagen = __DIR__ . "/../../imagenes/puntos/" . $archivo;
+    crearImagen($almacenaPuntos, $rutaImagen);
+    escribirAfichero($archivo,$almacenaPuntos);
+
+    echo '<img src="../../imagenes/puntos/' . $archivo . '" alt="">';
 ?>
-    <img src="../../imagenes/puntos/<?= $archivo ?>" alt="">
 
 <?php
 }
