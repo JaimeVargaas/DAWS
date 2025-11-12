@@ -154,16 +154,21 @@ function formulario($datos, $errores)
 * @return bool devuelve si ejecuta correctamente o hay algún error
 */
 function escribirAfichero(string $nombre, array $datos):bool{
-    //ruta en la que se guardará el fichero
-    $ruta="/imagenes/puntos";
-    //si no existe la ruta se crea
-    if(!file_exists($ruta))
-        mkdir($ruta);
-    $ruta.=$nombre;
-    //se abre el fichero para escritura
+    // ruta absoluta correcta en el proyecto (directorio imagenes/puntos)
+    $ruta = __DIR__ . "/../../imagenes/puntos/";
 
-    //si existe añade a lo que ya hay, w si quere que se sobreescriba
-    $fic=fopen($ruta,"a");
+    // si no existe la ruta se crea (recursivo por si falta cualquier carpeta)
+    if (!is_dir($ruta)) {
+        if (!mkdir($ruta, 0777, true)) {
+            return false; // no se pudo crear la carpeta
+        }
+    }
+
+    // nombre completo del fichero
+    $ficheroPath = $ruta . $nombre;
+
+    // abrir el fichero para escritura (añadir al final)
+    $fic = fopen($ficheroPath, "a");
     if(!$fic)
         return false;
     //se recorre el array con los datos
@@ -179,6 +184,7 @@ function escribirAfichero(string $nombre, array $datos):bool{
     }
     //se cierra el fichero
     fclose($fic);
+    
 
     return true;
 }
@@ -246,6 +252,8 @@ function crearImagen($almacenaPuntos){
 
         imagefilledellipse($imagen, $x, $y, $grosor, $grosor, $color);
     }
+
+    imagejpeg($imagen, __DIR__ . "/../../imagenes/puntos/" . nombreArch());
 }
 ?>
 
@@ -253,6 +261,8 @@ function crearImagen($almacenaPuntos){
 //vista
 function cuerpo($almacenaPuntos, $datos, $errores)
 {
+    $archivo = nombreArch();
+    escribirAfichero($archivo,$almacenaPuntos);
 
     if (empty($errores) && isset($_POST["guardar"])) {
         echo "<h2>Punto creado correctamente </h2>";
@@ -262,8 +272,9 @@ function cuerpo($almacenaPuntos, $datos, $errores)
     } else {
         formulario($datos, $errores);
     }
-
     textArea($almacenaPuntos);
 ?>
+    <img src="../../imagenes/puntos/<?= $archivo ?>" alt="">
+
 <?php
 }

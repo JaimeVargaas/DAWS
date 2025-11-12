@@ -1,6 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . "/../../cabecera.php");
-require_once "../../scripts/librerias/validacion.php";
+require_once(__DIR__ . "/../librerias/validacion.php");
 
 class Punto
 {
