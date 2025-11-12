@@ -83,8 +83,8 @@ function cabecera() {}
 // -----------------------------------------
 function formulario($datos, $errores)
 {
-?>
-    <h2>Ejercicio 1</h2>
+?>  
+    <h2>Añadir Punto</h2>
     <form action="" method="post">
         <label for="x">Coordenadas X</label>
         <input type="text" name="x" value="<?= $datos["x"] ?>">
@@ -147,47 +147,6 @@ function formulario($datos, $errores)
 // -----------------------------------------
 // EJERCICIO 2
 // -----------------------------------------
-/**
-* funcion para escribir en un fichero
-* @param string $nombre nombre del fichero
-* @param mixed $datos valores
-* @return bool devuelve si ejecuta correctamente o hay algún error
-*/
-function escribirAfichero(string $nombre, array $datos):bool{
-    // ruta absoluta correcta en el proyecto (directorio imagenes/puntos)
-    $ruta = __DIR__ . "/../../imagenes/puntos/";
-
-    // si no existe la ruta se crea (recursivo por si falta cualquier carpeta)
-    if (!is_dir($ruta)) {
-        if (!mkdir($ruta, 0777, true)) {
-            return false; // no se pudo crear la carpeta
-        }
-    }
-
-    // nombre completo del fichero
-    $ficheroPath = $ruta . $nombre;
-
-    // abrir el fichero para escritura (añadir al final)
-    $fic = fopen($ficheroPath, "a");
-    if(!$fic)
-        return false;
-    //se recorre el array con los datos
-    foreach($datos as $fila)
-    {
-        $linea="";
-        foreach($fila as $columna){
-            $linea.=$columna.",";
-    }
-    $linea.="\r\n";
-    //se escribe en el fichero una linea
-        fputs($fic,$linea);
-    }
-    //se cierra el fichero
-    fclose($fic);
-    
-
-    return true;
-}
 
 function nombreArch() {
     $ip = str_replace(".","_",$_SERVER['REMOTE_ADDR']);
@@ -214,16 +173,15 @@ function nombreArch() {
 function textArea($almacenaPuntos)
 {
 ?>
-    <h2>Ejercicio 2</h2>
-    <textarea style="margin-left: 10px;width:60%;height:200px">
-        <?php
+    <h2>Puntos guardados</h2>
+    <textarea style="margin-left: 10px;width:60%;height:200px;text-align: center;font-size:0.9em"><?php
         $grosor = "";
         foreach ($almacenaPuntos as $valor) {
             if ($valor->getGrosor() == 1) $grosor = "Fino";
             else if ($valor->getGrosor() == 2) $grosor = "Medio";
             else $grosor = "Grueso";
             echo "Punto: con valor X " . $valor->getX() . " con valor Y " . $valor->getY() .
-                "de color " . $valor->getColor() . " con grosor " . $grosor . "\n";
+                " de color " . $valor->getColor() . " con grosor " . $grosor . "\n";
         }
         ?>
     </textarea>
@@ -260,9 +218,10 @@ function cuerpo($almacenaPuntos, $datos, $errores)
 {   
 
     if (empty($errores) && isset($_POST["guardar"])) {
-        echo "<h2>Punto creado correctamente </h2>";
         $punto = new Punto((int)$datos["x"], $datos["y"], $datos["color"], $datos["grosor"]);
-        array_push($almacenaPuntos, $punto);
+        anadirAFichero(nombreDat(),[$punto]);
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit;
         formulario($datos, $errores);
     } else {
         formulario($datos, $errores);
@@ -272,9 +231,8 @@ function cuerpo($almacenaPuntos, $datos, $errores)
     $archivo = nombreArch();
     $rutaImagen = __DIR__ . "/../../imagenes/puntos/" . $archivo;
     crearImagen($almacenaPuntos, $rutaImagen);
-    escribirAfichero($archivo,$almacenaPuntos);
 
-    echo '<img src="../../imagenes/puntos/' . $archivo . '" alt="">';
+    echo '<img id="puntos" src="../../imagenes/puntos/' . $archivo . '" alt="">';
 ?>
 
 <?php
