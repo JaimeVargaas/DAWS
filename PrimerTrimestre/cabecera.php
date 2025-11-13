@@ -126,6 +126,7 @@ function leerDeFichero(string $nombre, array &$datos): bool
     return true;
 }
 
+// funcion que saca el nombre deseado .dat
 function nombreDat()
 {
     $ip = $_SERVER['REMOTE_ADDR'];
@@ -145,6 +146,30 @@ function nombreDat()
     }
 
     $nombreArch = "puntos_$ip" . "_$navegador.dat";
+
+    return $nombreArch;
+}
+
+// funcion que saca el nombre deseado .txt
+function nombreTxt()
+{
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $agente = $_SERVER['HTTP_USER_AGENT'];
+    $navegador = "";
+
+    if (strpos($agente, 'Chrome') !== false && mb_strpos($agente, 'Edge') === false) {
+        $navegador = "chrome";
+    } elseif (mb_strpos($agente, 'Firefox') !== false) {
+        $navegador = "firefox";
+    } elseif (mb_strpos($agente, 'Safari') !== false && mb_strpos($agente, 'Chrome') === false) {
+        $navegador = "safari";
+    } elseif (mb_strpos($agente, 'Edge') !== false || mb_strpos($agente, 'Edg') !== false) {
+        $navegador = "edge";
+    } elseif (mb_strpos($agente, 'Opera') !== false || mb_strpos($agente, 'OPR') !== false) {
+        $navegador = "opera";
+    }
+
+    $nombreArch = "puntos_$ip" . "_$navegador.txt";
 
     return $nombreArch;
 }

@@ -35,7 +35,7 @@ $delPunto = [
 ];
 
 $errores = [];
-
+// validar eliminiar punto
 if (isset($_POST["eliminar"])) {
     $clave = "";
     if (isset($_POST["elimina"])) {
@@ -44,6 +44,7 @@ if (isset($_POST["eliminar"])) {
     $delPunto["clave"] = $clave;
 }
 
+// validar subir puntos
 if (isset($_POST["guardar"])) {
     // x
     $x = "";
@@ -87,6 +88,47 @@ if (isset($_POST["guardar"])) {
     $datos["grosor"] = (int)$grosor;
 }
 
+// validar el archivo subido
+if (isset($_POST["subirArch"])) {
+    if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
+        $nombre = $_FILES["archivo"]["name"];
+        $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+        $lineas = [];
+
+        if (mb_strtolower($extension) != "txt") {
+            $errores["subirArch"][] = "El archivo debe ser txt";
+        } else if ($nombre != nombreTxt()) {
+            $errores["subirArch"][] = "El nombre del archivo no coincide";
+        }
+        else {
+            $rutaTemporal = $_FILES["archivo"]["tmp_name"];
+            $nombreArchivo = $_FILES["archivo"]["name"];
+            $destino = __DIR__ . "/datos/" . $nombreArchivo;
+            // mover el fichero a datos y luego cuando este en el array borrarlo
+            if(move_uploaded_file($rutaTemporal, $destino)) {
+                $lineas=[];
+                if(leerDeFichero($nombreArchivo,$lineas)){
+                    $almacenaPuntos = $lineas;
+                    escribirAFichero(nombreDat(), $almacenaPuntos);
+                    // eliminar el archivo
+                    unlink($destino);
+                    header("Location: " . $_SERVER['REQUEST_URI']);
+                    exit;
+                }
+            }
+        }
+} else {
+    $errores["subirArch"][] = "Tienes que subir un archivo";
+}
+}
+
+
+    if (empty($errores) && isset($_POST["eliminar"])) {
+        unset($almacenaPuntos[$delPunto["clave"]]);
+        escribirAFichero(nombreDat(), $almacenaPuntos);
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit;
+    } 
 
 //dibuja la plantilla de la vista
 inicioCabecera("Jaime Vargas Báez");
@@ -168,7 +210,7 @@ function formulario($datos, $errores)
 // -----------------------------------------
 // EJERCICIO 2
 // -----------------------------------------
-
+// funcion que saca el nombre del archivo deseado .jpg
 function nombreArch()
 {
     $ip = str_replace(".", "_", $_SERVER['REMOTE_ADDR']);
@@ -192,6 +234,7 @@ function nombreArch()
     return $nombreArch;
 }
 
+// text area con valores puntos
 function textArea($almacenaPuntos)
 {
 ?>
@@ -211,6 +254,7 @@ function textArea($almacenaPuntos)
 }
 
 // meterme en phpini y quitarle comentario a extension=gd
+// crear imagen
 function crearImagen(array $puntos, string $rutaImagen): void
 {
     $ancho = 500;
@@ -234,6 +278,7 @@ function crearImagen(array $puntos, string $rutaImagen): void
     imagedestroy($imagen);
 }
 
+// funcion que hace los mismo que crear imagen pero sin meterle ruta para la posterior descarga
 function devuelveImagen(array $puntos)
 {
     $ancho = 500;
@@ -292,7 +337,23 @@ function descargaImg()
     </form>
 <?php
 }
-
+// -----------------------------------------
+// EJERCICIO 6
+// -----------------------------------------
+function subirArchivo($errores) {
+    ?>
+    <h2>Subir archivo puntos</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="archivo" id="archivo">
+        <input type="submit" value="Subir Archivo" name="subirArch">
+    </form>
+    <?php if (!empty($errores["subirArch"])) { ?>
+            <?php foreach ($errores["subirArch"] as $mensaje) { ?>
+                <p style="color: red;"><?= $mensaje ?></p>
+            <?php } ?>
+        <?php } ?>
+    <?php 
+}
 ?>
 
 <?php
@@ -318,15 +379,11 @@ function cuerpo($almacenaPuntos, $datos, $errores, $delPunto)
     echo '<img id="puntos" src="../../imagenes/puntos/' . $archivo . '" alt="">';
     descargaImg();
 
-    if (empty($errores) && isset($_POST["eliminar"])) {
-        unset($almacenaPuntos[$delPunto["clave"]]);
-        escribirAFichero(nombreDat(), $almacenaPuntos);
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit;
-        formEliminar($almacenaPuntos);
-    } else {
-        formEliminar($almacenaPuntos);
-    }
+
+    formEliminar($almacenaPuntos);
+
+    subirArchivo($errores);
+
 
 ?>
 
