@@ -2,6 +2,15 @@
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 require_once "../../scripts/librerias/validacion.php";
 
+// descargar la imagen
+if (isset($_POST["descargar"])) {
+    header('Content-Type: image/png');
+    header('Content-Disposition: attachment; filename="'. nombreArch() .'"');
+
+    devuelveImagen($almacenaPuntos);
+    exit;
+}
+
 //controlador
 $ubicacion = [
     "Index Principal" => "/index.php",
@@ -21,7 +30,19 @@ $datos = [
     "grosor" => ""
 ];
 
+$delPunto = [
+    "clave" => ""
+];
+
 $errores = [];
+
+if (isset($_POST["eliminar"])) {
+    $clave = "";
+    if (isset($_POST["elimina"])) {
+        $clave = trim($_POST["elimina"]);
+    }
+    $delPunto["clave"] = $clave;
+}
 
 if (isset($_POST["guardar"])) {
     // x
@@ -71,7 +92,7 @@ if (isset($_POST["guardar"])) {
 inicioCabecera("Jaime Vargas Báez");
 cabecera();
 inicioCuerpo("Practica 7");
-cuerpo($almacenaPuntos, $datos, $errores);  //llamo a la vista
+cuerpo($almacenaPuntos, $datos, $errores, $delPunto);  //llamo a la vista
 finCuerpo();
 // **
 
@@ -83,7 +104,7 @@ function cabecera() {}
 // -----------------------------------------
 function formulario($datos, $errores)
 {
-?>  
+?>
     <h2>Añadir Punto</h2>
     <form action="" method="post">
         <label for="x">Coordenadas X</label>
@@ -148,8 +169,9 @@ function formulario($datos, $errores)
 // EJERCICIO 2
 // -----------------------------------------
 
-function nombreArch() {
-    $ip = str_replace(".","_",$_SERVER['REMOTE_ADDR']);
+function nombreArch()
+{
+    $ip = str_replace(".", "_", $_SERVER['REMOTE_ADDR']);
     $agente = $_SERVER['HTTP_USER_AGENT'];
     $navegador = "";
 
@@ -165,7 +187,7 @@ function nombreArch() {
         $navegador = "opera";
     }
 
-       $nombreArch = "imagen_$ip"."_$navegador.jpg";
+    $nombreArch = "imagen_$ip" . "_$navegador.jpg";
 
     return $nombreArch;
 }
@@ -180,16 +202,17 @@ function textArea($almacenaPuntos)
             if ($valor->getGrosor() == 1) $grosor = "Fino";
             else if ($valor->getGrosor() == 2) $grosor = "Medio";
             else $grosor = "Grueso";
-            echo "Punto: con valor X " . $valor->getX() . " con valor Y " . $valor->getY() .
+                echo "Punto: con valor X " . $valor->getX() . " con valor Y " . $valor->getY() .
                 " de color " . $valor->getColor() . " con grosor " . $grosor . "\n";
-        }
-        ?>
+            }
+            ?>
     </textarea>
 <?php
 }
 
 // meterme en phpini y quitarle comentario a extension=gd
-function crearImagen(array $puntos, string $rutaImagen): void {
+function crearImagen(array $puntos, string $rutaImagen): void
+{
     $ancho = 500;
     $alto = 500;
     $imagen = imagecreatetruecolor($ancho, $alto);
@@ -210,16 +233,76 @@ function crearImagen(array $puntos, string $rutaImagen): void {
     imagejpeg($imagen, $rutaImagen);
     imagedestroy($imagen);
 }
+
+function devuelveImagen(array $puntos)
+{
+    $ancho = 500;
+    $alto = 500;
+    $imagen = imagecreatetruecolor($ancho, $alto);
+
+    $blanco = imagecolorallocate($imagen, 255, 255, 255);
+    imagefill($imagen, 0, 0, $blanco);
+
+    $negro = imagecolorallocate($imagen, 0, 0, 0);
+    imagerectangle($imagen, 0, 0, $ancho - 1, $alto - 1, $negro);
+
+    foreach ($puntos as $p) {
+        $rgb = Punto::COLORES[$p->getColor()]['rgb'];
+        $color = imagecolorallocate($imagen, $rgb[0], $rgb[1], $rgb[2]);
+        $radio = $p->getGrosor() * 3;
+        imagefilledellipse($imagen, $p->getX(), $p->getY(), $radio, $radio, $color);
+    }
+
+    imagejpeg($imagen); 
+    imagedestroy($imagen);
+}
+
+// -----------------------------------------
+// EJERCICIO 4
+// -----------------------------------------
+function formEliminar($almacenaPuntos)
+{
+?>
+    <h2>Eliminar Puntos</h2>
+    <form action="" method="post">
+        <label for="">Selecciona el punto a eliminar</label>
+        <select name="elimina" id="elimina">
+            <?php
+            foreach ($almacenaPuntos as $clave => $valor) {
+                echo "<option value=\"$clave\">";
+                echo "Punto $clave, con valores: " . $valor->getX() . ", " . $valor->getY() . " " .
+                    $valor->getColor() . " " . $valor->getGrosor();
+                echo "</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" value="Eliminar" name="eliminar">
+    </form>
+<?php
+}
+
+// -----------------------------------------
+// EJERCICIO 5
+// -----------------------------------------
+function descargaImg()
+{
+?>
+    <form action="" method="post">
+        <input type="submit" value="Descargar" name="descargar">
+    </form>
+<?php
+}
+
 ?>
 
 <?php
 //vista
-function cuerpo($almacenaPuntos, $datos, $errores)
-{   
+function cuerpo($almacenaPuntos, $datos, $errores, $delPunto)
+{
 
     if (empty($errores) && isset($_POST["guardar"])) {
         $punto = new Punto((int)$datos["x"], $datos["y"], $datos["color"], $datos["grosor"]);
-        anadirAFichero(nombreDat(),[$punto]);
+        anadirAFichero(nombreDat(), [$punto]);
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit;
         formulario($datos, $errores);
@@ -233,6 +316,18 @@ function cuerpo($almacenaPuntos, $datos, $errores)
     crearImagen($almacenaPuntos, $rutaImagen);
 
     echo '<img id="puntos" src="../../imagenes/puntos/' . $archivo . '" alt="">';
+    descargaImg();
+
+    if (empty($errores) && isset($_POST["eliminar"])) {
+        unset($almacenaPuntos[$delPunto["clave"]]);
+        escribirAFichero(nombreDat(), $almacenaPuntos);
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit;
+        formEliminar($almacenaPuntos);
+    } else {
+        formEliminar($almacenaPuntos);
+    }
+
 ?>
 
 <?php

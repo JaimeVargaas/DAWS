@@ -42,7 +42,7 @@ leerDeFichero(nombreDat(),$almacenaPuntos);
 function escribirAFichero(string $nombre, array $datos): bool
 {
     //ruta en la que se guardará el fichero
-    $ruta = "./";
+     $ruta = __DIR__ . "/aplicacion/Practica7/datos/";
     //si no existe la ruta se crea
     if (!file_exists($ruta))
         mkdir($ruta);
@@ -67,7 +67,7 @@ function escribirAFichero(string $nombre, array $datos): bool
 function anadirAFichero(string $nombre, array $datos): bool
 {
     //ruta en la que se guardará el fichero
-    $ruta = "./";
+    $ruta = __DIR__ . "/aplicacion/Practica7/datos/";
     //si no existe la ruta se crea
     if (!file_exists($ruta))
         mkdir($ruta);
@@ -98,7 +98,7 @@ function anadirAFichero(string $nombre, array $datos): bool
 function leerDeFichero(string $nombre, array &$datos): bool
 {
     //ruta en la que se guardará el fichero
-    $ruta = "./";
+    $ruta = __DIR__ . "/aplicacion/Practica7/datos/";
     //si no existe la ruta se crea
     if (!file_exists($ruta))
         mkdir($ruta);
