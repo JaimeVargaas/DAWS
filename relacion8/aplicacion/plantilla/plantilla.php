@@ -35,6 +35,13 @@ function inicioCabecera(string $titulo)
 
         <link rel="stylesheet" type="text/css" href="../../estilos/base.css">
     <?php
+    if(!isset($_COOKIE["colorFondo"])) {
+        setcookie("colorFondo", "white");
+    }
+
+    if(!isset($_COOKIE["colorTexto"])) {
+        setcookie("colorTexto", "black");
+    }
 }
 function finCabecera()
 {
@@ -45,8 +52,16 @@ function finCabecera()
 function inicioCuerpo(string $cabecera)
 {
     global $acceso;
-?>
 
+    $colorFondo = $_COOKIE["colorFondo"] ?? "white";
+    $colorTexto = $_COOKIE["colorTexto"] ?? "black";
+?>  
+    <style>
+        h2 {
+            color: <?= $colorTexto ?>;
+            background-color: <?= $colorFondo ?>;
+        }
+    </style>
     <body>
         <div id="documento">
 
@@ -54,6 +69,8 @@ function inicioCuerpo(string $cabecera)
                 <h1 id="titulo"><?php echo $cabecera; ?></h1>
                 <div>
                     <a href="/index.php">Inicio</a>
+                    <a href="/aplicacion/personalizar/personalizar.php">Personalizar</a>
+                    <a href="/aplicacion/texto/verTextos.php">Textos</a>
                 </div>
             </header>
 

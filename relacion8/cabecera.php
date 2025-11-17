@@ -10,7 +10,7 @@ else
 
 
 spl_autoload_register(function ($clase) {
-    $ruta = RUTABASE . "/scripts/clases/";
+    $ruta = RUTABASE . "/aplicacion/clases/";
     $fichero = $ruta . "$clase.php";
 
     if (file_exists($fichero)) {
@@ -22,3 +22,9 @@ spl_autoload_register(function ($clase) {
 
 include(RUTABASE . "/aplicacion/plantilla/plantilla.php");
 // include(RUTABASE . "/aplicacion/config/acceso_bd.php");
+
+$COLORESTEXTO = ["black","white","blue","red","yellow"];
+$COLORESFONDO = ["black","white","blue","red","cyan","purple"];
+
+session_start();
+if(!isset($_SESSION["textos"]))$_SESSION["textos"]=[];
