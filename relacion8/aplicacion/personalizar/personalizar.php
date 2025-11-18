@@ -3,10 +3,8 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 
 $ubicacion = [
     "Index Principal" => "/index.php",
-    "Relación VIII" => "/aplicacion/personalizar/personalizar.php"
+    "Personalizar" => "/aplicacion/personalizar/personalizar.php"
 ];
-$GLOBALS['ubicacion'] = $ubicacion;
-
 
 if(isset($_POST["cambiarColores"])) {
     setcookie("colorTexto",$_POST["letra"],time()+3600*24*30, "/");

@@ -4,7 +4,6 @@ include_once(dirname(__FILE__) . "/cabecera.php");
 $ubicacion = [
     "Index Principal" => "/index.php"
 ];
-$GLOBALS['ubicacion'] = $ubicacion;
 
 
 $contador = isset($_COOKIE["contador"]) ? $_COOKIE["contador"] : 1;

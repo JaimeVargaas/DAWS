@@ -35,6 +35,7 @@ function inicioCabecera(string $titulo)
 
         <link rel="stylesheet" type="text/css" href="../../estilos/base.css">
     <?php
+    
     if(!isset($_COOKIE["colorFondo"])) {
         setcookie("colorFondo", "white");
     }

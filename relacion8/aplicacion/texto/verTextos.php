@@ -1,10 +1,11 @@
 <?php
 include_once(dirname(__FILE__) . "/../../cabecera.php");
+include_once __DIR__ . "/../clases/RegistroTexto.php";
 
 $ubicacion = [
-    "Index Principal" => "/index.php"
+    "Index Principal" => "/index.php",
+    "Textos" => "/aplicacion/texto/verTextos.php"
 ];
-$GLOBALS['ubicacion'] = $ubicacion;
 
 $textos = $_SESSION["textos"];
 

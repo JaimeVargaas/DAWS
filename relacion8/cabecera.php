@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__ . "/aplicacion/clases/RegistroTexto.php";
+
 define("RUTABASE", dirname(__FILE__));
 //define("MODO_TRABAJO","produccion"); //en "produccion o en desarrollo
 define("MODO_TRABAJO", "desarrollo"); //en "produccion o en desarrollo
@@ -10,7 +12,7 @@ else
 
 
 spl_autoload_register(function ($clase) {
-    $ruta = RUTABASE . "/aplicacion/clases/";
+    $ruta = RUTABASE . "/scripts/clases/";
     $fichero = $ruta . "$clase.php";
 
     if (file_exists($fichero)) {
