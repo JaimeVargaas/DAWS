@@ -120,7 +120,8 @@
          */
         function existeRole(int $codRole):bool
         {
-            
+            if(array_key_exists($codRole, $this->_roles)) return true;
+            else return false;
         }
 
         /**
@@ -147,7 +148,11 @@
          */
         function getPermisoRole(int $codRole, int $numero): bool
         {
-              
+            if(array_key_exists($codRole,$this->_roles)) {
+                if(array_key_exists($numero,$this->_roles[$codRole]["permisos"])) 
+                    return $this->_roles[$codRole]["permisos"]===true;
+            }     
+            return false;
         }
 
         /**
@@ -175,7 +180,7 @@
 
             //la contraseña la guardo encriptada
 			//establecer el método
-            $contrasena= método encriptado;
+            $contrasena= password_hash($contrasena,PASSWORD_BCRYPT);
 
             //busco cual es el ultimo codigo
             $cont=0;
@@ -234,7 +239,8 @@
          */
         function existeCodUsuario(int $codUsuario):bool
         {
-            
+            if(array_key_exists($codUsuario,$this->_usuarios)) return true;
+            return false;
         }
 
         /**
@@ -270,7 +276,7 @@
             $codigo=$this->getCodUsuario($nick);
             
 			//establecer el metodo de encriptado
-            $contrasena= metodo de encriptado;
+            $contrasena= password_hash($contrasena,PASSWORD_BCRYPT);
 
             if ($this->_usuarios[$codigo]["contrasenia"]!=$contrasena)
                  return false;

@@ -6,7 +6,7 @@ $ubicacion = [
 ];
 
 
-$contador = isset($_COOKIE["contador"]) ? $_COOKIE["contador"] : 1;
+$contador = isset($_COOKIE["contador"]) ? $_COOKIE["contador"] : 0;
 $contador++;
 setcookie("contador",(string)$contador);
 
