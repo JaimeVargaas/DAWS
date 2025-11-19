@@ -58,7 +58,7 @@
             //pongo el nombre en minuscula
             $nombre=mb_strtolower($nombre);
             
-            //inicializo un arracon todos los permisos a false
+            //inicializo un array con todos los permisos a false
             $per=[1=>false,false,false,false,false,
                     false,false,false,false,false];
 
@@ -252,7 +252,11 @@
          */
         function existeUsuario(string $nick):bool
         {
-               
+            foreach($this->_usuarios as $valor) {
+                if($valor["nick"]==$nick) return true;
+            }
+
+            return false;
         }
 
         /**
@@ -295,7 +299,11 @@
          */
         function getPermiso(int $codUsuario, int $numero):bool
         {
+            if(array_key_exists($codUsuario,$this->_usuarios)) {
+                if($this->_usuarios[$codUsuario]["cod_role"]==$numero) return true;
 
+            }
+            return false;
         }
 
         /**
@@ -307,7 +315,12 @@
          */
         function getPermisos(int $codUsuario):array|false
         {
+            if(array_key_exists($codUsuario, $this->_usuarios)) {
+                $roles=$this->_usuarios[$codUsuario]["cod_role"];
 
+                return $this->_roles[$roles]["permisos"];
+            }
+            return false;
 
         }
 
@@ -335,7 +348,8 @@
          */
         function getBorrado(int $codUsuario):bool
         {
-
+            if(array_key_exists($codUsuario, $this->_usuarios)) return true;
+            else return false;
 
         }
 
@@ -381,8 +395,11 @@
          */
         function setContrasenia(int $codUsuario, string $contrasenia):bool
         {
-
-
+            if(array_key_exists($codUsuario,$this->_usuarios)){
+                $this->_usuarios[$codUsuario]["contrasenia"] = password_hash($contrasenia, PASSWORD_BCRYPT);
+                return true;
+            }
+            return false;
         }
 
         /**
@@ -415,8 +432,14 @@
          */
         function setUsuarioRole(int $codUsuario, int $role):bool
         {
- 
-
+            if(array_key_exists($codUsuario, $this->_usuarios)){
+                if(array_key_exists($role, $this->_roles)){
+                    $this->_usuarios[$codUsuario]["cod_role"]=$role;
+                    return true;
+                }   
+                return false;
+            }
+            return false;
         }
 
         /**
@@ -427,7 +450,11 @@
          */
         function dameUsuarios():array
         {
-
+            $array = [];
+            foreach($this->_usuarios as $clave => $valor) {
+                $array[$clave]=$valor["nick"];
+            }
+            return $array;
         }
 
         /**
