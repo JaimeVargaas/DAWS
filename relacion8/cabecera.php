@@ -30,3 +30,8 @@ $COLORESFONDO = ["black","white","blue","red","cyan","purple"];
 
 session_start();
 if(!isset($_SESSION["textos"]))$_SESSION["textos"]=[];
+
+$aclArray = new ACLArray();
+$acceso = new Acceso();
+
+

@@ -1,6 +1,11 @@
 <?php
+
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 
+if (!$acceso->hayUsuario()) {
+    header("Location: /aplicacion/acceso/login.php");
+    exit;
+}
 $ubicacion = [
     "Index Principal" => "/index.php",
     "Personalizar" => "/aplicacion/personalizar/personalizar.php"

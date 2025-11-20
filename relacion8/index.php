@@ -5,6 +5,7 @@ $ubicacion = [
     "Index Principal" => "/index.php"
 ];
 
+if(isset($_POST["cerrarSesion"])) $acceso->quitarRegistroUsuario();
 
 $contador = isset($_COOKIE["contador"]) ? $_COOKIE["contador"] : 0;
 $contador++;

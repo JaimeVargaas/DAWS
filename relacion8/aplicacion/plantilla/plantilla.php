@@ -1,4 +1,6 @@
 <?php
+include_once(dirname(__FILE__) . "/../../cabecera.php");
+
 function paginaError(string $mensaje)
 {
     header("HTTP/1.0 404 $mensaje");
@@ -62,12 +64,23 @@ function inicioCuerpo(string $cabecera)
             color: <?= $colorTexto ?>;
             background-color: <?= $colorFondo ?>;
         }
+
     </style>
     <body>
         <div id="documento">
 
             <header>
                 <h1 id="titulo"><?php echo $cabecera; ?></h1>
+                <?php 
+                    if($acceso->hayUsuario()) {
+                        echo "<h4>Bienvenido ". $acceso->getNick() ."</h4>";
+                         ?>
+                        <form action="" method="post">
+                            <button name="cerrarSesion">Cerrar sesión</button>
+                        </form>
+                    <?php 
+                    }
+                ?>
                 <div>
                     <a href="/index.php">Inicio</a>
                     <a href="/aplicacion/personalizar/personalizar.php">Personalizar</a>

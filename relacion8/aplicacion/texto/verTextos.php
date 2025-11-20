@@ -2,6 +2,11 @@
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 include_once __DIR__ . "/../clases/RegistroTexto.php";
 
+if (!$acceso->hayUsuario()) {
+    header("Location: /aplicacion/acceso/login.php");
+    exit;
+}
+
 $ubicacion = [
     "Index Principal" => "/index.php",
     "Textos" => "/aplicacion/texto/verTextos.php"
