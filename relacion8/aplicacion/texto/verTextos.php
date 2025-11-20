@@ -7,6 +7,14 @@ if (!$acceso->hayUsuario()) {
     exit;
 }
 
+if(isset($_POST["cerrarSesion"])) $acceso->quitarRegistroUsuario();
+
+
+if(!$acceso->puedePermiso(1)){
+     paginaError("No tienes permiso para acceder a esta página");
+     exit;
+}
+
 $ubicacion = [
     "Index Principal" => "/index.php",
     "Textos" => "/aplicacion/texto/verTextos.php"
@@ -33,6 +41,7 @@ finCabecera();
 inicioCuerpo("2 DAW - Relación 8");
 cuerpo($textos);
 finCuerpo();
+
 
 function intrTexto() {
     ?>

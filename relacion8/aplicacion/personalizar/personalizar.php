@@ -2,6 +2,7 @@
 
 include_once(dirname(__FILE__) . "/../../cabecera.php");
 
+// si no hay sesion iniciada le manda a login
 if (!$acceso->hayUsuario()) {
     header("Location: /aplicacion/acceso/login.php");
     exit;
@@ -18,6 +19,15 @@ if(isset($_POST["cambiarColores"])) {
     exit;
 }
 
+// si le da al boton de cerrar sesion quita el usuario
+if(isset($_POST["cerrarSesion"])) $acceso->quitarRegistroUsuario();
+
+// si no tiene el permiso uno no puede entrar a la pagina
+if(!$acceso->puedePermiso(1)){
+     paginaError("No tienes permiso para acceder a esta página");
+     exit;
+}
+
 
 
 // Dibuja la plantilla de la vista
@@ -26,13 +36,13 @@ cabecera();
 finCabecera();
 
 inicioCuerpo("2 DAW - Relación 8");
-cuerpo();
+cuerpo($acceso);
 finCuerpo();
 
 
 
 // **********************************************************
-function comboFuente() {
+function comboFuente($acceso) {
     ?>
     <form action="" method="post">
         <label for="">Elige el color de letra</label>
@@ -53,16 +63,20 @@ function comboFuente() {
             <option value="purple">Morado</option>
         </select>
         <br>
+            <?php if($acceso->puedePermiso(2)) { ?>
          <input type="submit" value="cambiar los colores" name="cambiarColores">
+         <?php } else {?>
+            <p style="color: red;">No tienes permisos para modificiar los colores</p>
+          <?php }?>  
     </form>
     <?php
 }
 
 function cabecera() {}
 //vista
-function cuerpo()
+function cuerpo($acceso)
 {   
-    comboFuente();
+    comboFuente($acceso);
 
 ?>  
     
